@@ -10,13 +10,17 @@ const WhyChooseUs = () => {
         {whyChooseUs.map((d, i) => {
           return (
             <div key={i} className="py-32" style={{ backgroundColor: `${d.bgColor}` }}>
-              <div key={i} className={`${i % 2 === 0 ? '' : 'flex-row-reverse'} mx-auto w-[70%] flex items-center`}>
+              <div
+                className={`${
+                  i % 2 === 0 ? '' : 'flex-row-reverse'
+                } mx-auto w-[90%] md:w-[50%] lg:w-[70%] lg:flex items-center mt-32 space-y-10 lg:space-y-0`}
+              >
                 <img
                   src={d.image}
                   alt="Associate Installer"
-                  className={`w-[380px] ${i % 2 === 0 ? 'mr-32' : 'ml-32'}`}
+                  className={`w-[380px] ${i % 2 === 0 ? 'lg:mr-32' : 'lg:ml-32'}`}
                 />
-                <div className="space-y-8">
+                <div className="space-y-8 lg:space-y-12">
                   <div>
                     <p className="text-sm" style={{ color: `${d.textColor}` }}>
                       {d.subtitle}
@@ -36,3 +40,4 @@ const WhyChooseUs = () => {
 };
 
 export default WhyChooseUs;
+

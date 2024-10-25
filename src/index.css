@@ -7,3 +7,21 @@
 * {
   font-family: 'Inter', sans-serif;
 }
+
+/* In your index.css */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-250px * 7)); /* Adjust based on logo width + gap */
+  }
+}
+
+.logos-slide {
+  animation: scroll 25s linear infinite;
+}
+
+.logos-slide:hover {
+  animation-play-state: paused;
+}

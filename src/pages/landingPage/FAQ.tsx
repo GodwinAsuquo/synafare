@@ -62,9 +62,9 @@ const Faq = () => {
   };
 
   return (
-    <div className="mt-48 mx-auto w-[70%]">
-      <h3 className="text-center text-3xl font-semibold text-primary">Frequently Asked Questions</h3>
-      <p className="text-center mt-3 w-[50%] mx-auto text-primary font-light">
+    <div className="mt-48 mx-auto w-[90%] md:w-[70%]">
+      <h3 className="text-left md:text-center text-3xl font-semibold text-primary">Frequently Asked Questions</h3>
+      <p className="text-left md:text-center mt-3 lg:w-[50%] mx-auto text-primary font-light">
         Giving answers to all the questions you might possibly have. If you still have questions, do reach out to us
       </p>
 

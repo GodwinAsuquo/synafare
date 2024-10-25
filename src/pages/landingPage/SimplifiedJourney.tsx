@@ -28,16 +28,16 @@ const journey = [
 
 const SimplifiedJourney = () => {
   return (
-    <section className="mx-auto w-[60%]">
-      <h2 className="text-4xl font-medium w-[90%] mx-auto mt-56 text-primary text-center">
+    <section className="mx-auto w-[90%] md:w-[80%] lg:w-[60%]">
+      <h2 className="text-4xl text-left font-medium w-[90%] mx-auto mt-56 text-primary md:text-center">
         From Application to Installation, <br /> We've Simplified the Solar Journey
       </h2>
-      <p className="text-gray-500  w-[85%] mt-9 mx-auto text-center">
+      <p className="text-gray-500 text-left w-[85%] mt-9 mx-auto md:text-center">
         Whether you're an installer or a homeowner, we’ve streamlined the entire journey to ensure that switching to
         clean, renewable energy is hassle-free and efficient.
       </p>
 
-      <div className="grid grid-cols-2 gap-10 mt-20">
+      <div className="grid lg:grid-cols-2 gap-10 mt-20">
         {journey.map((d, i) => {
           return (
             <div key={i} className="relative bg-[#F0F2F5] rounded-2xl h-[471px] px-6 py-8">

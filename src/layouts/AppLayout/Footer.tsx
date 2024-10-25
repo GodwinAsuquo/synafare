@@ -5,10 +5,10 @@ import { navLinks, socialLinks } from '../../utils/constants';
 const Footer = () => {
   const navigate = useNavigate();
   return (
-    <footer className="bg-[#000F06] py-20 px-24 text-white">
-      <div className="w-[85%] mx-auto flex items-start justify-between">
+    <footer className="bg-[#000F06] py-20 lg:px-24 text-white">
+      <div className="w-[80%] md:w-[60%] lg:w-[85%] mx-auto lg:flex items-start justify-between">
         <img src={logo} alt="logo" />
-        <div className="flex items-start space-x-56">
+        <div className="flex items-start justify-between lg:space-x-56 mt-16 lg:mt-0">
           <div>
             <h4 className="font-bold">Quick Links</h4>
             <ul className="text-sm font-light space-y-5 mt-6">

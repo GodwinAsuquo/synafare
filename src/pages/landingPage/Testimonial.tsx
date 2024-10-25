@@ -34,9 +34,9 @@ const Testimonial = () => {
   return (
     <div>
       <h2 className="text-center font-medium text-3xl mt-48">What Our Partners Say</h2>
-      <div className="mt-10 bg-[#FFFDF4] w-[80%] mx-auto py-7 px-10">
-        <div className="flex items-center justify-between">
-          <div className="w-[40%] overflow-hidden">
+      <div className="mt-10 bg-[#FFFDF4] w-[80%] mx-auto py-7 px-3 md:px-10">
+        <div className="lg:flex items-center justify-between">
+          <div className="lg:w-[40%] overflow-hidden">
             <div
               key={currentIndex}
               className={`transform transition-all duration-500 ease-in-out ${
@@ -51,7 +51,7 @@ const Testimonial = () => {
             </div>
           </div>
 
-          <div className="flex flex-col justify-between h-[320px] w-[50%]">
+          <div className="flex flex-col justify-between h-[320px] lg:w-[50%] mt-10 lg:mt-0">
             <div className="overflow-hidden">
               <div
                 key={currentIndex + '-quote'}
@@ -63,7 +63,7 @@ const Testimonial = () => {
                     : 'translate-x-0'
                 }`}
               >
-                <h4 className="text-3xl">{quote}</h4>
+                <h4 className="text-lg md:text-3xl leading-[1.7] lg:leading-0">{quote}</h4>
               </div>
             </div>
 
@@ -71,7 +71,7 @@ const Testimonial = () => {
               <div className="overflow-hidden">
                 <div
                   key={currentIndex + '-author'}
-                  className={`transform transition-all duration-500 ease-in-out ${
+                  className={`hidden lg:block transform transition-all duration-500 ease-in-out ${
                     isAnimating && slideDirection === 'left'
                       ? '-translate-x-full'
                       : isAnimating && slideDirection === 'right'
@@ -84,7 +84,7 @@ const Testimonial = () => {
                 </div>
               </div>
 
-              <div className="flex space-x-3 items-center">
+              <div className="flex justify-between w-full lg:w-fit lg:space-x-3 items-center">
                 <button
                   onClick={() => handleSlide('right')}
                   className="hover:opacity-80 transition-opacity"
@@ -92,6 +92,21 @@ const Testimonial = () => {
                 >
                   <img src={leftArrow} alt="Previous testimonial" />
                 </button>
+                <div className="overflow-hidden">
+                  <div
+                    key={currentIndex + '-author'}
+                    className={`lg:hidden transform transition-all duration-500 ease-in-out ${
+                      isAnimating && slideDirection === 'left'
+                        ? '-translate-x-full'
+                        : isAnimating && slideDirection === 'right'
+                        ? 'translate-x-full'
+                        : 'translate-x-0'
+                    }`}
+                  >
+                    <h5 className="font-medium">{name}</h5>
+                    <p className="text-gray-600">{role}</p>
+                  </div>
+                </div>
                 <button
                   onClick={() => handleSlide('left')}
                   className="hover:opacity-80 transition-opacity"
