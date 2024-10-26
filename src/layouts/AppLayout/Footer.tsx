@@ -6,7 +6,9 @@ const Footer = () => {
   return (
     <footer className="bg-[#000F06] py-20 lg:px-24 text-white">
       <div className="w-[80%] md:w-[60%] lg:w-[85%] mx-auto max-w-7xl lg:flex items-start justify-between">
-        <img src={logo} alt="logo" />
+        <Link to="top" smooth={true} duration={1000}>
+          <img src={logo} alt="logo" />
+        </Link>
         <div className="flex items-start justify-between lg:space-x-56 mt-16 lg:mt-0">
           <div>
             <h4 className="font-bold">Quick Links</h4>
@@ -14,7 +16,9 @@ const Footer = () => {
               {navLinks.map((d, i) => {
                 return (
                   <Link to={d.id} smooth={true} duration={1000} offset={-90}>
-                    <li className='mt-5' key={i}>{d.title}</li>
+                    <li className="mt-5" key={i}>
+                      {d.title}
+                    </li>
                   </Link>
                 );
               })}
