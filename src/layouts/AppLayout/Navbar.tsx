@@ -26,7 +26,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="fixed z-50 flex justify-between items-center text-white backdrop-blur-sm bg-black/30 w-[90%] left-1/2 -translate-x-1/2 top-4 px-4 py-1 text-sm rounded-xl">
+      <nav className="fixed z-50 flex justify-between items-center text-white backdrop-blur-sm bg-black/30 w-[90%] left-1/2 -translate-x-1/2 top-4 px-4 py-1 text-sm rounded-xl max-w-7xl">
         <img src={logo} alt="logo" className="w-[67px]" />
 
         {/* Desktop Navigation */}

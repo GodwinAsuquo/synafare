@@ -8,6 +8,8 @@ const Hero = () => {
           autoPlay
           loop
           muted
+          playsInline
+          preload="auto"
           className="absolute w-full h-full object-cover"
           src="https://res.cloudinary.com/dali2kmqa/video/upload/v1729767847/synafare/aeb4505f-7eda-476a-9c8c-02b8aebe0130_bk2kz2.mp4"
         />
