@@ -1,11 +1,12 @@
 import Button from '../../components/shared/Button';
 import associateInstaller from '../../assets/images/associateInstaller.png';
 import { becomeAPartnerArray, socialProof } from '../../utils/constants';
+import CountUp from 'react-countup';
 
 const BecomeAPartner = () => {
   return (
     <section>
-      <div className="bg-[#FFF9E6] py-20 ">
+      <div data-aos="fade-up" className="bg-[#FFF9E6] py-20 ">
         <div className=" mt-3 max-w-7xl mx-auto">
           <div className="w-[90%] md:w-[80%] lg:w-[40%]  mx-auto md:text-center font-semibold">
             <p className="text-[#407068] ">Scale Your Solar Business with Ease</p>
@@ -33,6 +34,7 @@ const BecomeAPartner = () => {
           return (
             <div
               key={i}
+              data-aos="fade-up"
               className={`${
                 i % 2 === 0 ? 'flex-row-reverse' : ''
               } mx-auto w-[90%] md:w-[50%] lg:w-[70%] lg:flex items-center mt-32 space-y-10 lg:space-y-0`}
@@ -52,12 +54,28 @@ const BecomeAPartner = () => {
         })}
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-14 md:gap-x-20 w-[80%] md:w-[70%] lg:w-[80%] max-w-7xl mx-auto place-items-center mx-auto my-44">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-14 md:gap-x-20 w-[80%] md:w-[70%] lg:w-[80%] max-w-7xl mx-auto place-items-center my-44">
         {socialProof.map((d, i) => {
           return (
             <div key={i} className="h-[192px] flex flex-col justify-between">
               <img src={d.icon} alt="" className="w-fit" />
-              <h3 className="text-4xl">{d.metric}</h3>
+              <h3 className="text-4xl">
+                {d.metric.includes('x') ? (
+                  <>
+                    <CountUp end={4} duration={2.5} enableScrollSpy />x
+                  </>
+                ) : d.metric.includes('₦') ? (
+                  <>
+                    ₦<CountUp end={0} duration={2.5} decimals={2} enableScrollSpy />
+                  </>
+                ) : d.metric.includes('%') ? (
+                  <>
+                    <CountUp end={parseInt(d.metric)} duration={2.5} enableScrollSpy />%
+                  </>
+                ) : (
+                  d.metric
+                )}
+              </h3>
               <p className="gray-500 font-light text-sm">{d.desc}</p>
             </div>
           );

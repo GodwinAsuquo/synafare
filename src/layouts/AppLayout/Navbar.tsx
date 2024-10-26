@@ -3,8 +3,8 @@ import logo from '../../assets/icons/logo.svg';
 import { MdOutlineSubject } from 'react-icons/md';
 // import { AiTwotoneCloseCircle } from 'react-icons/ai';
 import { TbSunOff } from 'react-icons/tb';
-
-const navLinks = ['About Us', 'How it works', 'Why choose us'];
+import { Link } from 'react-scroll';
+import { navLinks } from '../../utils/constants';
 
 const Navbar = () => {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
@@ -31,11 +31,15 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <ul className="hidden lg:flex items-center space-x-10">
-          {navLinks.map((link, index) => (
-            <li key={index} className="cursor-pointer hover:text-gray-300 transition-colors">
-              {link}
-            </li>
-          ))}
+          {navLinks.map((link, index) => {
+            return (
+              <Link to={link.id} smooth={true} duration={1000} offset={-90}>
+                <li key={index} className="cursor-pointer hover:text-gray-300 transition-colors">
+                  {link.title}
+                </li>
+              </Link>
+            );
+          })}
         </ul>
 
         <button className="hidden lg:block text-white bg-[#201E1F] py-2 px-4 rounded-lg border-2 border-[#4F986A] hover:bg-[#2a2829] transition-colors">
@@ -75,15 +79,20 @@ const Navbar = () => {
         </div>
 
         <ul className="flex flex-col space-y-12 p-8 mt-8 text-white">
-          {navLinks.map((link, index) => (
-            <li
-              key={index}
-              className="cursor-pointer text-base hover:text-gray-300 transition-colors text-left"
-              onClick={closeMobileNav}
-            >
-              {link}
-            </li>
-          ))}
+          {navLinks.map((link, index) => {
+            return (
+              <Link to={link.id} smooth={true} duration={1000} offset={-90}>
+                {' '}
+                <li
+                  key={index}
+                  className="cursor-pointer text-base hover:text-gray-300 transition-colors text-left"
+                  onClick={closeMobileNav}
+                >
+                  {link.title}
+                </li>
+              </Link>
+            );
+          })}
           <li className="">
             <button className="text-white bg-[#201E1F] py-2 px-3 mt-32 rounded-lg border-2 border-[#4F986A]">
               Become a Partner

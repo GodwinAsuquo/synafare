@@ -15,12 +15,7 @@ const Clientele = () => {
         <div className="flex logos-slide">
           {/* First set of logos */}
           {clienteleLogos.map((logo, i) => (
-            <img
-              key={`first-${i}`}
-              src={logo}
-              alt="logo"
-              className="w-32 mx-10" // Using mx instead of space-x for consistency
-            />
+            <img key={`first-${i}`} src={logo} alt="logo" className="w-32 mx-10" />
           ))}
           {/* Second set of logos */}
           {clienteleLogos.map((logo, i) => (
@@ -37,17 +32,20 @@ const Clientele = () => {
 
       <div className="w-[90%] md:w-[80%] mx-auto">
         <div>
-          <h2 className="text-primary text-3xl lg:text-4xl font-semibold lg:font-bold lg:w-[35%] mx-auto text-center mt-32">
+          <h2
+            data-aos="fade-up"
+            className="text-primary text-3xl lg:text-4xl font-semibold lg:font-bold lg:w-[35%] mx-auto text-center mt-32"
+          >
             Take Charge of Your Solar Financing Today
           </h2>
-          <img src={takeChargeMobile} alt="" className="w-full mt-16 md:hidden" />
-          <img src={takeCharge} alt="" className="w-full mt-16 hidden md:block" />
+          <img data-aos="fade-up" src={takeChargeMobile} alt="" className="w-full mt-16 md:hidden" />
+          <img data-aos="fade-up" src={takeCharge} alt="" className="w-full mt-16 hidden md:block" />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 w-[80%] md:w-[60%] lg:w-full mx-auto mt-28 gap-20">
           {takeChargeData.map((d, i) => {
             return (
-              <div key={i} className="space-y-6">
+              <div data-aos="zoom-in-down" key={i} className="space-y-6">
                 <img src={logo} alt="" />
                 <h4 className="text-primary font-medium text-xl">{d.title}</h4>
                 <p className="text-gray-500 font-light text-sm">{d.description}</p>

@@ -40,7 +40,7 @@ const SimplifiedJourney = () => {
       <div className="grid lg:grid-cols-2 gap-10 mt-20 w-[90%] md:w-[80%] lg:w-full mx-auto">
         {journey.map((d, i) => {
           return (
-            <div key={i} className="relative bg-[#F0F2F5] rounded-2xl h-[471px] px-6 py-8">
+            <div data-aos="fade-down" key={i} className="relative bg-[#F0F2F5] rounded-2xl h-[471px] px-6 py-8">
               <h3 className="text-primary text-xl font-medium">{d.title}</h3>
               <p className="text-[#5E5E5E] font-light mt-3">{d.desc}</p>
               <img className="absolute bottom-0 left-1/2 -translate-x-1/2" src={d.image} alt={d.title} />

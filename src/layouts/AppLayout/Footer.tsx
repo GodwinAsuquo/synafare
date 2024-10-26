@@ -1,9 +1,8 @@
-import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/icons/yellowLogo.svg';
 import { navLinks, socialLinks } from '../../utils/constants';
+import { Link } from 'react-scroll';
 
 const Footer = () => {
-  const navigate = useNavigate();
   return (
     <footer className="bg-[#000F06] py-20 lg:px-24 text-white">
       <div className="w-[80%] md:w-[60%] lg:w-[85%] mx-auto max-w-7xl lg:flex items-start justify-between">
@@ -11,12 +10,12 @@ const Footer = () => {
         <div className="flex items-start justify-between lg:space-x-56 mt-16 lg:mt-0">
           <div>
             <h4 className="font-bold">Quick Links</h4>
-            <ul className="text-sm font-light space-y-5 mt-6">
+            <ul className="text-sm font-light  mt-6">
               {navLinks.map((d, i) => {
                 return (
-                  <li key={i} onClick={() => navigate(d.path)}>
-                    {d.title}
-                  </li>
+                  <Link to={d.id} smooth={true} duration={1000} offset={-90}>
+                    <li className='mt-5' key={i}>{d.title}</li>
+                  </Link>
                 );
               })}
             </ul>
