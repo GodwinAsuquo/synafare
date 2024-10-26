@@ -3,7 +3,7 @@ import { whyChooseUs } from '../../utils/constants';
 
 const WhyChooseUs = () => {
   return (
-    <div>
+    <div >
       <h2 className="text-center text-primary font-semibold text-4xl">Why Choose Us?</h2>
 
       <div className="mt-28">
@@ -13,7 +13,7 @@ const WhyChooseUs = () => {
               <div
                 className={`${
                   i % 2 === 0 ? '' : 'flex-row-reverse'
-                } mx-auto w-[90%] md:w-[50%] lg:w-[70%] lg:flex items-center mt-32 space-y-10 lg:space-y-0`}
+                } mx-auto w-[90%] md:w-[50%] lg:w-[70%] max-w-7xl lg:flex items-center space-y-10 lg:space-y-0`}
               >
                 <img
                   src={d.image}

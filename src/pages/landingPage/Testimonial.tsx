@@ -33,9 +33,9 @@ const Testimonial = () => {
 
   return (
     <div>
-      <h2 className="text-center font-medium text-3xl mt-48">What Our Partners Say</h2>
-      <div className="mt-10 bg-[#FFFDF4] w-[80%] mx-auto py-7 px-3 md:px-10">
-        <div className="lg:flex items-center justify-between">
+      <h2 className="w-[90%] mx-auto md:text-center font-medium text-3xl mt-32 lg:mt-48">What Our Partners Say</h2>
+      <div className="mt-10 bg-[#FFFDF4] rounded-lg w-[90%] md:w-full mx-auto py-10 px-5 md:px-10">
+        <div className="lg:flex items-center justify-between mx-auto md:w-[80%] max-w-7xl">
           <div className="lg:w-[40%] overflow-hidden">
             <div
               key={currentIndex}

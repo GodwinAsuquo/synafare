@@ -22,7 +22,7 @@ const features = [
 
 const GameChanger = () => {
   return (
-    <section className="w-[90%] md:w-[80%] mt-44 mx-auto">
+    <section className="w-[90%] md:w-[80%] max-w-7xl mt-24  lg:mt-44 mx-auto">
       <div className="lg:flex justify-between items-center">
         <h2 className="text-3xl lg:text-4xl font-medium md:w-1/2 lg:w-[35%] text-primary">
           Why Synafare is Your Solar Game-Changer

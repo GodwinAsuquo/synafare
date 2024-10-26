@@ -28,8 +28,8 @@ const journey = [
 
 const SimplifiedJourney = () => {
   return (
-    <section className="mx-auto w-[90%] md:w-[80%] lg:w-[60%]">
-      <h2 className="text-4xl text-left font-medium w-[90%] mx-auto mt-56 text-primary md:text-center">
+    <section className="mx-auto md:w-[80%] lg:w-[60%] max-w-7xl ">
+      <h2 className="text-4xl text-left font-medium w-[90%] mx-auto mt-28 lg:mt-56 text-primary md:text-center">
         From Application to Installation, <br /> We've Simplified the Solar Journey
       </h2>
       <p className="text-gray-500 text-left w-[85%] mt-9 mx-auto md:text-center">
@@ -37,7 +37,7 @@ const SimplifiedJourney = () => {
         clean, renewable energy is hassle-free and efficient.
       </p>
 
-      <div className="grid lg:grid-cols-2 gap-10 mt-20">
+      <div className="grid lg:grid-cols-2 gap-10 mt-20 w-[90%] md:w-[80%] lg:w-full mx-auto">
         {journey.map((d, i) => {
           return (
             <div key={i} className="relative bg-[#F0F2F5] rounded-2xl h-[471px] px-6 py-8">

@@ -6,7 +6,7 @@ import logo from '../../assets/icons/blackLogo.svg';
 
 const Clientele = () => {
   return (
-    <div className="my-32  mx-auto">
+    <div className="my-32  mx-auto max-w-7xl">
       <p className="text-center text-[#646464] text-xl">Our Clientele</p>
 
       {/* logos  */}

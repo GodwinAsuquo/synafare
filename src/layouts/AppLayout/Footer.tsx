@@ -6,7 +6,7 @@ const Footer = () => {
   const navigate = useNavigate();
   return (
     <footer className="bg-[#000F06] py-20 lg:px-24 text-white">
-      <div className="w-[80%] md:w-[60%] lg:w-[85%] mx-auto lg:flex items-start justify-between">
+      <div className="w-[80%] md:w-[60%] lg:w-[85%] mx-auto max-w-7xl lg:flex items-start justify-between">
         <img src={logo} alt="logo" />
         <div className="flex items-start justify-between lg:space-x-56 mt-16 lg:mt-0">
           <div>

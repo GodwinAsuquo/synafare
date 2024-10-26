@@ -6,25 +6,29 @@ const BecomeAPartner = () => {
   return (
     <section>
       <div className="bg-[#FFF9E6] py-20 ">
-        <p className="text-[#407068] text-center">Scale Your Solar Business with Ease</p>
-        <h2 className="text-3xl font-semibold w-[90%] md:w-[80%] lg:w-[35%] text-center mx-auto mt-3">
-          Whatever your role in the solar energy ecosystem, Synafare has the tools to help you succeed.
-        </h2>
+        <div className=" mt-3 max-w-7xl mx-auto">
+          <div className="w-[90%] md:w-[80%] lg:w-[40%]  mx-auto md:text-center font-semibold">
+            <p className="text-[#407068] ">Scale Your Solar Business with Ease</p>
+            <h2 className="text-3xl mt-5">
+              Whatever your role in the solar energy ecosystem, Synafare has the tools to help you succeed.
+            </h2>
+          </div>
 
-        <div className="mx-auto w-[90%] md:w-1/2 lg:w-[70%] lg:flex lg:items-center mt-24 space-y-10 lg:space-y-0">
-          <img src={associateInstaller} alt="Associate Installer" className="w-[380px] mr-32" />
-          <div className="space-y-5 lg:space-y-12">
-            <h3 className="text-3xl font-medium">Associate Installer</h3>
-            <p className="text-gray-500 text-lg font-light ">
-              Partner with Synafare to access essential resources, streamline customer management, and benefit from
-              affordable financing. We’re here to help you grow your solar installation business.
-            </p>
-            <Button />
+          <div className="mx-auto w-[90%] md:w-1/2 lg:w-[70%] lg:flex lg:items-center mt-24 space-y-10 lg:space-y-0">
+            <img src={associateInstaller} alt="Associate Installer" className="w-[380px] mr-32" />
+            <div className="space-y-5 lg:space-y-12">
+              <h3 className="text-3xl font-medium">Associate Installer</h3>
+              <p className="text-gray-500 text-lg font-light ">
+                Partner with Synafare to access essential resources, streamline customer management, and benefit from
+                affordable financing. We’re here to help you grow your solar installation business.
+              </p>
+              <Button />
+            </div>
           </div>
         </div>
       </div>
 
-      <div>
+      <div className="max-w-7xl mx-auto">
         {becomeAPartnerArray.map((d, i) => {
           return (
             <div
@@ -48,7 +52,7 @@ const BecomeAPartner = () => {
         })}
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-14 md:gap-x-20 w-[80%] md:w-[70%] lg:w-[80%] place-items-center mx-auto my-44">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-14 md:gap-x-20 w-[80%] md:w-[70%] lg:w-[80%] max-w-7xl mx-auto place-items-center mx-auto my-44">
         {socialProof.map((d, i) => {
           return (
             <div key={i} className="h-[192px] flex flex-col justify-between">
