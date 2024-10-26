@@ -26,7 +26,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="fixed z-50 flex justify-between items-center text-white backdrop-blur-sm bg-black/30 w-[90%] left-1/2 -translate-x-1/2 top-4 px-4 py-2 text-sm rounded-xl">
+      <nav className="fixed z-50 flex justify-between items-center text-white backdrop-blur-sm bg-black/30 w-[90%] left-1/2 -translate-x-1/2 top-4 px-4 py-1 text-sm rounded-xl">
         <img src={logo} alt="logo" className="w-[67px]" />
 
         {/* Desktop Navigation */}
@@ -48,7 +48,7 @@ const Navbar = () => {
           className="lg:hidden text-white hover:text-gray-300 transition-colors"
           aria-label="Toggle mobile menu"
         >
-          <MdOutlineSubject size={35} />
+          <MdOutlineSubject size={30} />
         </button>
       </nav>
 
@@ -59,7 +59,7 @@ const Navbar = () => {
 
       {/* Mobile Navigation Drawer */}
       <div
-        className={`fixed top-0 right-0 w-4/5 sm:w-2/3 h-full bg-[#201E1F] z-50 transform transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 right-0 w-[230px] md:w-[300px] text-sm h-full bg-[#201E1F] z-50 transform transition-transform duration-300 ease-in-out ${
           isMobileNavOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
@@ -70,7 +70,7 @@ const Navbar = () => {
             aria-label="Close mobile menu"
           >
             {/* <AiTwotoneCloseCircle size={35} /> */}
-            <TbSunOff size={35} />
+            <TbSunOff size={30} />
           </button>
         </div>
 
@@ -78,14 +78,14 @@ const Navbar = () => {
           {navLinks.map((link, index) => (
             <li
               key={index}
-              className="cursor-pointer text-xl hover:text-gray-300 transition-colors text-left"
+              className="cursor-pointer text-base hover:text-gray-300 transition-colors text-left"
               onClick={closeMobileNav}
             >
               {link}
             </li>
           ))}
           <li className="">
-            <button className="text-white bg-[#201E1F] py-2 px-3 rounded-lg border-2 border-[#4F986A]">
+            <button className="text-white bg-[#201E1F] py-2 px-3 mt-32 rounded-lg border-2 border-[#4F986A]">
               Become a Partner
             </button>
           </li>
