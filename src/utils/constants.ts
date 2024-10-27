@@ -125,16 +125,16 @@ export const testimonials = [
 
 export const navLinks = [
   {
-    title: 'About Us',
-    id: 'about',
+    title: 'Why choose us',
+    id: 'why-choose-us',
   },
   {
     title: 'How it works',
-   id: 'how-it-works',
+    id: 'how-it-works',
   },
   {
-    title: 'Why choose us',
-   id: 'why-choose-us',
+    title: 'FAQs',
+    id: 'faq',
   },
 ];
 

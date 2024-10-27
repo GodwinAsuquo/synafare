@@ -6,11 +6,11 @@ import logo from '../../assets/icons/blackLogo.svg';
 
 const Clientele = () => {
   return (
-    <div className="my-32  mx-auto max-w-7xl">
+    <div className="my-32  mx-auto ">
       <p className="text-center text-[#646464] text-xl">Our Clientele</p>
 
       {/* logos  */}
-      <div className="relative flex overflow-hidden bg-white mt-10">
+      <div className="relative flex overflow-hidden bg-white mt-10 max-w-[1440px] mx-auto">
         {/* Mask for smooth transition */}
         <div className="flex logos-slide">
           {/* First set of logos */}
@@ -30,7 +30,7 @@ const Clientele = () => {
 
       {/* end  */}
 
-      <div className="w-[90%] md:w-[80%] mx-auto">
+      <div className="w-[90%] md:w-[80%] mx-auto max-w-7xl">
         <div>
           <h2
             data-aos="fade-up"

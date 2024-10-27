@@ -6,7 +6,7 @@ const WhyChooseUs = () => {
     <div id="why-choose-us">
       <h2 className="text-center text-primary font-semibold text-4xl">Why Choose Us?</h2>
 
-      <div className="mt-28">
+      <div className="mt-16 lg:mt-28">
         {whyChooseUs.map((d, i) => {
           return (
             <div key={i} className="py-32" style={{ backgroundColor: `${d.bgColor}` }}>

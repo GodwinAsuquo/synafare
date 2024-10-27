@@ -28,7 +28,7 @@ const journey = [
 
 const SimplifiedJourney = () => {
   return (
-    <section className="mx-auto md:w-[80%] lg:w-[60%] max-w-7xl ">
+    <section id='how-it-works' className="mx-auto md:w-[80%] lg:w-[60%] max-w-7xl ">
       <h2 className="text-4xl text-left font-medium w-[90%] mx-auto mt-28 lg:mt-56 text-primary md:text-center">
         From Application to Installation, <br /> We've Simplified the Solar Journey
       </h2>

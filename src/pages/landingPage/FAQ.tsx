@@ -62,7 +62,7 @@ const Faq = () => {
   };
 
   return (
-    <div className="mt-32 lg:mt-48 mx-auto w-[90%] md:w-[80%] max-w-7xl">
+    <div id='faq' className="mt-32 lg:mt-48 mx-auto w-[90%] md:w-[80%] max-w-7xl">
       <h3 data-aos="fade-up" className="text-left md:text-center text-3xl font-semibold text-primary">
         Frequently Asked Questions
       </h3>
