@@ -2,14 +2,14 @@ import { Link } from 'react-scroll';
 import Button from '../../components/shared/Button';
 
 const Hero = () => {
-  const getOffset = () => {
-    const width = window.innerWidth;
-    if (width >= 768) {
-      return -90;
-    } else {
-      return 0;
-    }
-  };
+  // const getOffset = () => {
+  //   const width = window.innerWidth;
+  //   if (width >= 768) {
+  //     return -90;
+  //   } else {
+  //     return 0;
+  //   }
+  // };
 
   return (
     <section id="top">
@@ -34,7 +34,7 @@ const Hero = () => {
               customers effortlessly.
             </p>
             <div className="flex space-x-3 md:space-x-5 mx-auto w-fit text-sm">
-              <Link to="services" smooth={true} duration={1000} offset={getOffset()}>
+              <Link to="services" smooth={true} duration={1000} offset={-90}>
                 <button className="text-primary bg-white py-2 px-2 md:px-3 rounded-lg border-2 border-white">
                   Explore our services
                 </button>
