@@ -30,7 +30,7 @@ const Clientele = () => {
 
       {/* end  */}
 
-      <div className="w-[90%] md:w-[80%] mx-auto max-w-7xl">
+      <div id="services" className="w-[90%] md:w-[80%] mx-auto max-w-7xl">
         <div>
           <h2
             data-aos="fade-up"
