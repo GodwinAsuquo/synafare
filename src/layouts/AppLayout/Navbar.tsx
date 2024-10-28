@@ -65,7 +65,7 @@ const Navbar = () => {
 
       {/* Mobile Navigation Drawer */}
       <div
-        className={`fixed top-0 right-0 w-[230px] md:w-[300px] text-sm h-full bg-[#201E1F] z-50 transform transition-transform duration-300 ease-in-out ${
+        className={`fixed overflow-scroll top-0 right-0 w-[230px] md:w-[300px] text-sm h-full bg-[#201E1F] z-50 transform transition-transform duration-300 ease-in-out ${
           isMobileNavOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
