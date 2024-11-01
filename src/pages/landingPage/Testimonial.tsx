@@ -32,7 +32,7 @@ const Testimonial = () => {
   const { quote, name, role } = testimonials[currentIndex];
   // lg:flex items-center justify-between
   return (
-    <div>
+    <div id="testimonial">
       <h2 data-aos="fade-down" className="w-[90%] mx-auto md:text-center font-medium text-3xl mt-32 lg:mt-48">
         What Our Partners Say
       </h2>

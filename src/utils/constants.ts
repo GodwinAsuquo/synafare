@@ -123,8 +123,8 @@ export const navLinks = [
     id: 'why-choose-us',
   },
   {
-    title: 'How it works',
-    id: 'how-it-works',
+    title: 'Testimonial',
+    id: 'testimonial',
   },
   {
     title: 'FAQs',
