@@ -1,8 +1,10 @@
-import loom from '../assets/images/clienteleLogos/loom.svg';
-import flock from '../assets/images/clienteleLogos/flock.svg';
-import mercury from '../assets/images/clienteleLogos/mercury.svg';
-import missive from '../assets/images/clienteleLogos/missive.svg';
-import strapi from '../assets/images/clienteleLogos/strapi.svg';
+import growatt from '../assets/images/clienteleLogos/growatt.svg';
+import purity from '../assets/images/clienteleLogos/purity.svg';
+import scorpion from '../assets/images/clienteleLogos/scorpion.svg';
+import simbagroup from '../assets/images/clienteleLogos/simbagroup.svg';
+import solarspark from '../assets/images/clienteleLogos/solarspark.svg';
+import sygnite from '../assets/images/clienteleLogos/sygnite.svg';
+import wersolution from '../assets/images/clienteleLogos/wersolution.svg';
 import distributor from '../assets/images/distributor.png';
 import manufacturer from '../assets/images/manufacturer.png';
 import faster from '../assets/icons/faster.svg';
@@ -31,7 +33,7 @@ export const becomeAPartnerArray = [
   },
 ];
 
-export const clienteleLogos = [loom, flock, mercury, missive, strapi];
+export const clienteleLogos = [growatt, purity, scorpion, simbagroup, solarspark, sygnite, wersolution];
 
 export const takeChargeData = [
   {
