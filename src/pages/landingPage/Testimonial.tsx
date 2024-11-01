@@ -29,16 +29,16 @@ const Testimonial = () => {
     }, 500); // Match this with animation duration
   };
 
-  const { quote, name, role, image } = testimonials[currentIndex];
-
+  const { quote, name, role } = testimonials[currentIndex];
+  // lg:flex items-center justify-between
   return (
     <div>
       <h2 data-aos="fade-down" className="w-[90%] mx-auto md:text-center font-medium text-3xl mt-32 lg:mt-48">
         What Our Partners Say
       </h2>
       <div className="mt-10 bg-[#FFFDF4] rounded-lg w-[90%] md:w-full  mx-auto py-10 px-5 md:px-10 min-h-[500px] md:min-h-[600px] lg:min-h-[400px]">
-        <div className="lg:flex items-center justify-between mx-auto md:w-[80%] max-w-7xl">
-          <div className="lg:w-[40%] overflow-hidden">
+        <div className=" mx-auto md:w-[80%] max-w-7xl">
+          {/* <div className="lg:w-[40%] overflow-hidden">
             <div
               key={currentIndex}
               className={`transform transition-all duration-500 ease-in-out ${
@@ -51,9 +51,9 @@ const Testimonial = () => {
             >
               <img src={image} alt={`${name}'s testimonial`} className="w-full" />
             </div>
-          </div>
+          </div> */}
 
-          <div className="flex flex-col justify-between h-[320px] lg:w-[50%] mt-10 lg:mt-0">
+          <div className="flex flex-col justify-between h-[320px] lg:w-full mt-10 lg:mt-0">
             <div className="overflow-hidden">
               <div
                 key={currentIndex + '-quote'}

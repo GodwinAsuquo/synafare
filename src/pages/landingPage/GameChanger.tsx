@@ -4,18 +4,21 @@ import visibility from '../../assets/icons/visibility.svg';
 
 const features = [
   {
-    title: 'Flexible Financing',
-    description: 'We provide tailored solar financing options.',
+    title: 'Flexible Financing for Growth',
+    description:
+      'Whether you’re an installer looking to scale your services or a distributor expanding your inventory, Synafare’s financing options let you grow on your terms. We provide flexible, tailored financing plans to keep your business moving forward without cash flow interruptions.',
     icon: flexible,
   },
   {
-    title: 'Streamlined Operations',
-    description: 'Efficient tools for managing your business',
+    title: 'Access to Premium Energy Solutions',
+    description:
+      'Synafare gives you access to top-of-the-line solar panels, inverters, and batteries, enabling you to provide your clients with reliable, sustainable energy solutions. Our network ensures that your business has high-quality products that are built to perform and last.',
     icon: streamlined,
   },
   {
-    title: 'Enhanced Visibility',
-    description: 'Connect with more customers through our platform.',
+    title: 'Simplified Onboarding & Partnership Process',
+    description:
+      'Getting started with Synafare is straightforward. We’ve designed our onboarding and financing processes to be seamless, ensuring you can quickly access the products and support you need. From initial setup to ongoing financing management, we make it easy for you to succeed.',
     icon: visibility,
   },
 ];
@@ -36,7 +39,7 @@ const GameChanger = () => {
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-28 gap-y-20 mt-24 lg:mt-36">
         {features.map((d, i) => {
           return (
-            <div data-aos="zoom-in-down" key={i} className="space-y-8">
+            <div data-aos="zoom-in-down" key={i} className="flex flex-col justify-between space-y-8">
               <img src={d.icon} alt={d.title} className="w-14" />
               <h4 className="text-xl font-medium">{d.title}</h4>
               <p className="text-lg font-light text-gray-500">{d.description}</p>

@@ -5,7 +5,7 @@ import Faq from './FAQ';
 import GameChanger from './GameChanger';
 import Hero from './Hero';
 import PreFooter from './PreFooter';
-import SimplifiedJourney from './SimplifiedJourney';
+// import SimplifiedJourney from './SimplifiedJourney';
 import Testimonial from './Testimonial';
 import WhyChooseUs from './WhyChooseUs';
 
@@ -17,7 +17,7 @@ const LandingPage = () => {
       <BecomeAPartner />
       <WhyChooseUs />
       <GameChanger />
-      <SimplifiedJourney />
+      {/* <SimplifiedJourney /> */}
       <Testimonial />
       <Faq />
       <PreFooter />

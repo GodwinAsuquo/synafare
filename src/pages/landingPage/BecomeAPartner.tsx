@@ -18,10 +18,11 @@ const BecomeAPartner = () => {
           <div className="mx-auto w-[90%] md:w-1/2 lg:w-[70%] lg:flex lg:items-center mt-24 space-y-10 lg:space-y-0">
             <img src={associateInstaller} alt="Associate Installer" className="w-[380px] mr-32" />
             <div className="space-y-5 lg:space-y-12">
-              <h3 className="text-3xl font-medium">Associate Installer</h3>
+              <h3 className="text-3xl font-medium">For Installers</h3>
               <p className="text-gray-500 text-lg font-light ">
-                Partner with Synafare to access essential resources, streamline customer management, and benefit from
-                affordable financing. We’re here to help you grow your solar installation business.
+                Synafare offers tailored financing plans that allow installers to meet the demand for solar and battery
+                installations without the upfront costs. From project-based financing to extended terms, we make it easy
+                for installers to expand their services.
               </p>
               <Button />
             </div>

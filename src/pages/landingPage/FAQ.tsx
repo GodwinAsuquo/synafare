@@ -8,49 +8,41 @@ type FAQItem = {
 
 const faqs: FAQItem[] = [
   {
-    question: 'What types of solar projects does Synafare finance?',
+    question: 'How does the financing process work?',
     answer:
-      'Simply sign up on our platform, complete the short application, and submit your project details for quick approval.',
+      'Once registered as a partner, you can apply for financing on behalf of your customers. We process each request, pay the distributor directly, and the products are shipped to you, ready for installation.',
   },
   {
-    question: 'How do I apply for solar financing with Synafare?',
-    answer:
-      'Simply sign up on our platform, complete the short application, and submit your project details for quick approval.',
+    question: 'What is the minimum and maximum loan amount available?',
+    answer: 'Loan amounts range from ₦500,000 to ₦10,000,000 per business, depending on eligibility.',
   },
   {
-    question: 'What are the typical terms for solar financing?',
+    question: 'What is the interest rate, and how is it applied?',
     answer:
-      'Simply sign up on our platform, complete the short application, and submit your project details for quick approval.',
+      'The interest rate varies based on the financed asset type, term length, and risk profile. Rates are applied to the total value of the financed assets and are disclosed during the application process.',
   },
   {
-    question: 'How quickly can I get approved for financing?',
+    question: 'How do I receive products once financing is approved?',
     answer:
-      'Simply sign up on our platform, complete the short application, and submit your project details for quick approval.',
+      'After approval, we pay the distributor directly, who will then deliver the products to you, ensuring you have the equipment needed.',
   },
   {
-    question: 'Does Synafare only work with solar installers?',
+    question: 'Can I receive cash instead of products?',
     answer:
-      'Simply sign up on our platform, complete the short application, and submit your project details for quick approval.',
+      'No, financing is strictly product-based. Payments are made directly to distributors, so you receive only the necessary products for installation.',
   },
   {
-    question: 'Are there any hidden fees?',
+    question: 'Who is responsible for collecting loan repayments?',
     answer:
-      'Simply sign up on our platform, complete the short application, and submit your project details for quick approval.',
+      "As the installer partner, you'll handle collections from your customers. We'll equip you with tools to streamline and manage this repayment process.",
   },
   {
-    question: 'Can I track the progress of my solar project?',
-    answer:
-      'Simply sign up on our platform, complete the short application, and submit your project details for quick approval.',
-  },
-  {
-    question: 'What happens if I miss a payment?',
-    answer:
-      'Simply sign up on our platform, complete the short application, and submit your project details for quick approval.',
-  },
-  {
-    question: 'How does Synafare support solar installers?',
-    answer:
-      'Simply sign up on our platform, complete the short application, and submit your project details for quick approval.',
+    question: 'What business tools do you provide to support my operations?',
+    answer: `We offer a suite of business tools, including:
+
+• CRM Tools: Manage customer relationships and track interactions.
+• Lead Generation Services: Find new customers to grow your business.
+• Business Analytics: Access insights and data to improve your operations and track growth.`,
   },
 ];
 
@@ -88,7 +80,7 @@ const Faq = () => {
                 openIndex === index ? 'max-h-40' : 'max-h-0'
               }`}
             >
-              <p className="pb-6 text-black/70 text-base font-light">{faq.answer}</p>
+              <p className="pb-6 text-black/70 text-base font-light whitespace-pre-line">{faq.answer}</p>
             </div>
           </div>
         ))}

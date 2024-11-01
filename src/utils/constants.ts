@@ -14,7 +14,6 @@ import thumb from '../assets/icons/thumb.svg';
 import trackPayment from '../assets/images/trackPayment.png';
 import hassleFree from '../assets/images/hassleFree.png';
 import stayUpdated from '../assets/images/stayUpdated.png';
-import ayobami from '../assets/images/testimonials/ayobami.png';
 import facebook from '../assets/icons/socialMedia/facebook.svg';
 import instagram from '../assets/icons/socialMedia/instagram.svg';
 import linkedIn from '../assets/icons/socialMedia/linkedIn.svg';
@@ -22,13 +21,13 @@ import twitter from '../assets/icons/socialMedia/twitter.svg';
 
 export const becomeAPartnerArray = [
   {
-    title: 'Manufacturer that installs',
-    desc: 'As an MWI partner, leverage our flexible financing for large projects and tools for effective customer portfolio management to succeed in the clean energy sector.',
+    title: 'For Retailing Installers',
+    desc: 'Grow your sales and installations with Synafare’s financing packages. Our financing solutions are crafted to help you deliver affordable energy solutions, building trust and loyalty with your customers.',
     image: manufacturer,
   },
   {
-    title: 'Distributor that Installs',
-    desc: 'Join Synafare to enhance your distribution capabilities. Our optimized solutions will aid in energy sales management, driving your business forward in the renewable energy market.',
+    title: 'For Distributors',
+    desc: 'Enhance your inventory with Synafare’s financing options. We support distributors with competitive financing, helping you stock high-quality solar products, inverters, and batteries while managing cash flow efficiently.',
     image: distributor,
   },
 ];
@@ -48,8 +47,7 @@ export const takeChargeData = [
   },
   {
     title: 'Get Your Equipment at 30%',
-    description:
-      'Once you reach 50% of your financing, we’ll deliver your solar equipment, allowing you to enjoy clean energy before full payment.',
+    description: 'Once you reach 30% of your financing, we’ll deliver your solar equipment before full payment.',
   },
 ];
 
@@ -63,31 +61,29 @@ export const socialProof = [
 export const whyChooseUs = [
   {
     id: 1,
-    title: 'Experience Hassle-Free Payments',
-    subtitle: 'Quick Disbursement Process',
+    title: 'Reliable Support & Partnership',
     description:
-      'Business owners rely on our fast, straightforward disbursement process. Complete a transaction and receive payment within three working days—enjoy smooth, hassle-free transactions with Synafare.',
+      'Synafare partners closely with clients, offering dedicated support, resources, and guidance to help you achieve your business goals.',
     image: hassleFree,
     bgColor: '#F1F8FF',
     textColor: '#1671D9',
   },
   {
     id: 2,
-    title: 'Stay Updated with Ease',
-    subtitle: 'Automated Email Notifications',
+    title: 'Specialized Energy Focus',
     description:
-      "With Synafare, you'll never miss a deal or update. Our automated email notifications keep you informed about deal progress, new leads, and essential product updates.",
-    image: stayUpdated, // Replace with actual image path
+      'With a focus on the solar, inverter, and battery market, Synafare offers financing expertise that understands the unique needs of the energy sector.',
+    image: stayUpdated,
     bgColor: '#FFFFFF',
     textColor: '#0F973D',
   },
   {
     id: 3,
-    title: 'Track Customer Payment Plans',
-    subtitle: 'Transparent Payment Plans',
+    title: 'Flexible Financing Plans',
     description:
-      "Synafare's energy financial technology ensures the right clean energy solutions meet your needs. From payment plans to installation support and aftercare services, we have you covered without hidden fees.",
-    image: trackPayment, // Replace with actual image path
+      `Synafare provides adaptable financing options, allowing
+businesses to choose plans that align with their cash flow and growth targets.`,
+    image: trackPayment,
     bgColor: '#FFFAF0',
     textColor: '#0F973D',
   },
@@ -95,33 +91,29 @@ export const whyChooseUs = [
 
 export const testimonials = [
   {
-    quote:
-      'Synafare helped us grow our solar installation business by providing the financing we needed. Their platform made everything seamless.',
-    name: 'Ayobami Adele',
+    quote: `Synafare’s financing options allowed us to expand our offerings without worrying about cash
+flow. The team’s support has been invaluable in growing our business.`,
+    name: 'Holet Power Solutions',
     role: 'Solar Installer',
-    image: ayobami,
+  },
+  {
+    quote: `With Synafare, we were able to stock premium solar products that our clients trust, while
+managing our finances better. The seamless onboarding made it easy to get started!`,
+    name: 'Solar Spark',
+    role: 'Distributor',
   },
   {
     quote:
       'Synafare helped us grow our solar installation business by providing the financing we needed. Their platform made everything seamless.',
-    name: 'Ayobami Adele',
-    role: 'Solar Installer',
-    image: ayobami,
+    name: 'Scripion Energy',
+    role: 'Installer & Retailer',
   },
   {
-    quote:
-      'Synafare helped us grow our solar installation business by providing the financing we needed. Their platform made everything seamless.',
-    name: 'Ayobami Adele',
-    role: 'Solar Installer',
-    image: ayobami,
-  },
-  {
-    quote:
-      'Synafare helped us grow our solar installation business by providing the financing we needed. Their platform made everything seamless.',
+    quote: `Synafare is a true partner in the energy industry. Their financing and training resources
+have helped us meet increasing demand while ensuring smooth operations.`,
 
-    name: 'Ayobami Adele',
-    role: 'Solar Installer',
-    image: ayobami,
+    name: 'Sygnite',
+    role: 'Distributor',
   },
 ];
 

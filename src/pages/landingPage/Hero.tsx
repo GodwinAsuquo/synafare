@@ -33,7 +33,7 @@ const Hero = () => {
               Our platform empowers renewable energy business owners to boost sales, secure financing, and manage
               customers effortlessly.
             </p>
-            <div className="flex space-x-3 md:space-x-5 mx-auto w-fit text-sm">
+            <div className="flex space-x-3 md:space-x-2 mx-auto w-fit text-sm">
               <Link to="services" smooth={true} duration={1000} offset={-90}>
                 <button className="text-primary bg-white py-2 px-2 md:px-3 rounded-lg border-2 border-white">
                   Explore our services

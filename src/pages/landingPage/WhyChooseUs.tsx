@@ -4,7 +4,7 @@ import { whyChooseUs } from '../../utils/constants';
 const WhyChooseUs = () => {
   return (
     <div id="why-choose-us">
-      <h2 className="text-center text-primary font-semibold text-4xl">Why Choose Us?</h2>
+      <h2 className="text-center text-primary font-semibold text-4xl">Why Choose Synafare <br /> for Product Financing</h2>
 
       <div className="mt-16 lg:mt-28">
         {whyChooseUs.map((d, i) => {
@@ -23,9 +23,7 @@ const WhyChooseUs = () => {
                 />
                 <div className="space-y-8 lg:space-y-12">
                   <div>
-                    <p data-aos="fade-up" className="text-sm" style={{ color: `${d.textColor}` }}>
-                      {d.subtitle}
-                    </p>
+                  
                     <h3 data-aos="fade-up" className="text-3xl font-medium mt-2">
                       {d.title}
                     </h3>
