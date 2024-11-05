@@ -7,7 +7,7 @@ import logo from '../../assets/icons/blackLogo.svg';
 const Clientele = () => {
   return (
     <div className="my-32  mx-auto ">
-      <p className="text-center text-[#646464] text-xl">Our Clientele</p>
+      <p className="text-center text-[#646464] text-xl">Our Clientele and Partners</p>
 
       {/* logos  */}
       <div className="relative flex overflow-hidden bg-white mt-10 max-w-[1440px] mx-auto">
