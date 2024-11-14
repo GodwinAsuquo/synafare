@@ -45,7 +45,9 @@ const Navbar = () => {
         </ul>
 
         <button className="hidden lg:block text-white bg-[#201E1F] py-2 px-4 rounded-lg border-2 border-[#4F986A] hover:bg-[#2a2829] transition-colors">
-          Become a Partner
+          <a href="https://zdsineyv.forms.app/synafare-registration-form" target="_blank" rel="noopener noreferrer">
+            Become a Partner
+          </a>
         </button>
 
         {/* Mobile Menu Button */}
@@ -97,7 +99,9 @@ const Navbar = () => {
           })}
           <li className="">
             <button className="text-white bg-[#201E1F] py-2 px-3 mt-32 rounded-lg border-2 border-[#4F986A]">
-              Become a Partner
+              <a href="https://zdsineyv.forms.app/synafare-registration-form" target="_blank" rel="noopener noreferrer">
+                Become a Partner
+              </a>
             </button>
           </li>
         </ul>
