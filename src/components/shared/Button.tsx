@@ -10,7 +10,7 @@ const Button = () => {
         className="flex items-center justify-center w-[150px]  space-x-2 text-white bg-[#201E1F] py-2 px-3 rounded-lg border-2 text-sm border-[#4F986A] "
       >
         <p>Register</p>
-        <FaArrowRight className="mt-1.5" />
+        <FaArrowRight className="mt-1" />
       </a>
     </button>
   );
