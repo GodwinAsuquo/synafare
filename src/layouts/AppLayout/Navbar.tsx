@@ -44,9 +44,13 @@ const Navbar = () => {
           })}
         </ul>
 
-        <button className="hidden lg:block text-white bg-[#201E1F] py-2 px-4 rounded-lg border-2 border-[#4F986A] hover:bg-[#2a2829] transition-colors">
-          <a href="https://zdsineyv.forms.app/synafare-registration-form" target="_blank" rel="noopener noreferrer">
-            Become a Partner
+        <button className="hidden w-[150px] lg:flex justify-center  text-white bg-[#201E1F] py-2 px-4 rounded-lg border-2 border-[#4F986A] hover:bg-[#2a2829] transition-colors">
+          <a
+            href="https://forms.zohopublic.eu/segunsyna1/form/GetElectrifiedSignUpforSolarFinancing/formperma/KEQIyoZbvVhUDC6l_11JEPpjefZdIrNBmNmpj4Q2W8E"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Register
           </a>
         </button>
 
@@ -98,9 +102,13 @@ const Navbar = () => {
             );
           })}
           <li className="">
-            <button className="text-white bg-[#201E1F] py-2 px-3 mt-32 rounded-lg border-2 border-[#4F986A]">
-              <a href="https://zdsineyv.forms.app/synafare-registration-form" target="_blank" rel="noopener noreferrer">
-                Become a Partner
+            <button className="text-white w-[150px] flex justify-center bg-[#201E1F] py-2 px-3 mt-32 rounded-lg border-2 border-[#4F986A]">
+              <a
+                href="https://forms.zohopublic.eu/segunsyna1/form/GetElectrifiedSignUpforSolarFinancing/formperma/KEQIyoZbvVhUDC6l_11JEPpjefZdIrNBmNmpj4Q2W8E"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Register
               </a>
             </button>
           </li>
