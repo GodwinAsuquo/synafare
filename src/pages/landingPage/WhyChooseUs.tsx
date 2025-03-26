@@ -1,10 +1,12 @@
-import Button from '../../components/shared/Button';
+import ExplorePackagesButton from '../../components/shared/ExplorePackagesButton';
 import { whyChooseUs } from '../../utils/constants';
 
 const WhyChooseUs = () => {
   return (
     <div id="why-choose-us">
-      <h2 className="text-center text-primary font-semibold text-4xl">Why Choose Synafare <br /> for Product Financing</h2>
+      <h2 className="text-center text-primary font-semibold text-4xl">
+        Why Choose Synafare <br /> for Product Financing
+      </h2>
 
       <div className="mt-16 lg:mt-28">
         {whyChooseUs.map((d, i) => {
@@ -23,7 +25,6 @@ const WhyChooseUs = () => {
                 />
                 <div className="space-y-8 lg:space-y-12">
                   <div>
-                  
                     <h3 data-aos="fade-up" className="text-3xl font-medium mt-2">
                       {d.title}
                     </h3>
@@ -32,7 +33,7 @@ const WhyChooseUs = () => {
                     {d.description}
                   </p>
                   <div data-aos="fade-up">
-                    <Button />
+                    <ExplorePackagesButton />
                   </div>
                 </div>
               </div>

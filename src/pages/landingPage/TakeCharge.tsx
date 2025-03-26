@@ -1,34 +1,14 @@
-import { clienteleLogos, takeChargeData } from '../../utils/constants';
+import { socialProof, takeChargeData } from '../../utils/constants';
 import takeCharge from '../../assets/images/takeCharge.png';
 import takeChargeMobile from '../../assets/images/takeChargeMobile.png';
 
 import logo from '../../assets/icons/blackLogo.svg';
+import CountUp from 'react-countup';
 
-const Clientele = () => {
+const TakeCharge = () => {
   return (
     <div className="my-32  mx-auto ">
-      <p className="text-center text-[#646464] text-xl">Our Clientele and Partners</p>
-
-      {/* logos  */}
-      <div className="relative flex overflow-hidden bg-white mt-10 max-w-[1440px] mx-auto">
-        {/* Mask for smooth transition */}
-        <div className="flex logos-slide">
-          {/* First set of logos */}
-          {clienteleLogos.map((logo, i) => (
-            <img key={`first-${i}`} src={logo} alt="logo" className="w-32 mx-10" />
-          ))}
-          {/* Second set of logos */}
-          {clienteleLogos.map((logo, i) => (
-            <img key={`second-${i}`} src={logo} alt="logo" className="w-32 mx-10" />
-          ))}
-          {/* Third set of logos for extra smoothness */}
-          {clienteleLogos.map((logo, i) => (
-            <img key={`third-${i}`} src={logo} alt="logo" className="w-32 mx-10" />
-          ))}
-        </div>
-      </div>
-
-      {/* end  */}
+    
 
       <div id="services" className="w-[90%] md:w-[80%] mx-auto max-w-7xl">
         <div>
@@ -54,8 +34,37 @@ const Clientele = () => {
           })}
         </div>
       </div>
+
+      {/* metric  */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-14 md:gap-x-20 w-[80%] md:w-[70%] lg:w-[80%] max-w-7xl mx-auto place-items-center my-44">
+        {socialProof.map((d, i) => {
+          return (
+            <div key={i} className="h-[192px] flex flex-col justify-between">
+              <img src={d.icon} alt="" className="w-fit" />
+              <h3 className="text-4xl">
+                {d.metric.includes('x') ? (
+                  <>
+                    <CountUp end={4} duration={2.5} enableScrollSpy />x
+                  </>
+                ) : d.metric.includes('₦') ? (
+                  <>
+                    ₦<CountUp end={0} duration={2.5} decimals={2} enableScrollSpy />
+                  </>
+                ) : d.metric.includes('%') ? (
+                  <>
+                    <CountUp end={parseInt(d.metric)} duration={2.5} enableScrollSpy />%
+                  </>
+                ) : (
+                  d.metric
+                )}
+              </h3>
+              <p className="gray-500 font-light text-sm">{d.desc}</p>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
 
-export default Clientele;
+export default TakeCharge;

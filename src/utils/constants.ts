@@ -5,8 +5,6 @@ import simbagroup from '../assets/images/clienteleLogos/simbagroup.svg';
 import solarspark from '../assets/images/clienteleLogos/solarspark.svg';
 import sygnite from '../assets/images/clienteleLogos/sygnite.svg';
 import wersolution from '../assets/images/clienteleLogos/wersolution.svg';
-import distributor from '../assets/images/distributor.png';
-import manufacturer from '../assets/images/manufacturer.png';
 import faster from '../assets/icons/faster.svg';
 import fees from '../assets/icons/fees.svg';
 import successful from '../assets/icons/successful.svg';
@@ -18,17 +16,88 @@ import facebook from '../assets/icons/socialMedia/facebook.svg';
 import instagram from '../assets/icons/socialMedia/instagram.svg';
 import linkedIn from '../assets/icons/socialMedia/linkedIn.svg';
 import twitter from '../assets/icons/socialMedia/twitter.svg';
+import { PATHS } from './enum';
+import twoFive from '../assets/images/packageImages/2.5kva.png';
+import two from '../assets/images/packageImages/2kva.png';
+import oneFive from '../assets/images/packageImages/1.5kva.png';
+import one from '../assets/images/packageImages/1kva.png';
 
-export const becomeAPartnerArray = [
+export const inverterPackages = [
   {
-    title: 'For Retailing Installers',
-    desc: 'Grow your sales and installations with Synafare’s financing packages. Our financing solutions are crafted to help you deliver affordable energy solutions, building trust and loyalty with your customers.',
-    image: manufacturer,
+    image: twoFive,
+    capacity: '2.5',
+    deposit: '96,280',
+    description:
+      'This package is suitable for powering small appliances such as LED bulbs, fans, laptops, and phone chargers, but it cannot support TVs, refrigerators, or any heavy-duty appliances.',
+    defaultAppliances: [
+      { name: 'Mobile Phones', watts: 40, quantity: 4 },
+      { name: 'Energy Saving Bulb', watts: 10, quantity: 1 },
+      { name: 'Home Theatre', watts: 50, quantity: 1 },
+      { name: 'Laptops', watts: 65, quantity: 1 },
+      { name: 'Standing Fan', watts: 70, quantity: 1 },
+    ],
+    moreApliances: [
+      { name: 'Ceiling Fan', watts: 40, quantity: 1 },
+      { name: 'Blender', watts: 60, quantity: 1 },
+      { name: 'Diffuser', watts: 30, quantity: 1 },
+    ],
   },
   {
-    title: 'For Distributors',
-    desc: 'Enhance your inventory with Synafare’s financing options. We support distributors with competitive financing, helping you stock high-quality solar products, inverters, and batteries while managing cash flow efficiently.',
-    image: distributor,
+    image: two,
+    capacity: '2',
+    deposit: '96,280',
+    description:
+      'This package is suitable for powering small appliances such as LED bulbs, fans, laptops, and phone chargers, but it cannot support TVs, refrigerators, or any heavy-duty appliances.',
+    appliances: [
+      { name: 'Mobile Phones', watts: 400, quantity: 4 },
+      { name: 'Energy Saving Bulb', watts: 100, quantity: 1 },
+      { name: 'Home Theatre', watts: 500, quantity: 1 },
+      { name: 'Laptops', watts: 65, quantity: 1 },
+      { name: 'Standing Fan', watts: 70, quantity: 1 },
+    ],
+    moreApliances: [
+      { name: 'Ceiling Fan', watts: 40, quantity: 1 },
+      { name: 'Blender', watts: 60, quantity: 1 },
+      { name: 'Diffuser', watts: 30, quantity: 1 },
+    ],
+  },
+  {
+    image: oneFive,
+    capacity: '1.5',
+    deposit: '96,280',
+    description:
+      'This package is suitable for powering small appliances such as LED bulbs, fans, laptops, and phone chargers, but it cannot support TVs, refrigerators, or any heavy-duty appliances.',
+    appliances: [
+      { name: 'Mobile Phones', watts: 40, quantity: 4 },
+      { name: 'Energy Saving Bulb', watts: 10, quantity: 1 },
+      { name: 'Home Theatre', watts: 50, quantity: 1 },
+      { name: 'Laptops', watts: 65, quantity: 1 },
+      { name: 'Standing Fan', watts: 70, quantity: 1 },
+    ],
+    moreApliances: [
+      { name: 'Ceiling Fan', watts: 40, quantity: 1 },
+      { name: 'Blender', watts: 60, quantity: 1 },
+      { name: 'Diffuser', watts: 30, quantity: 1 },
+    ],
+  },
+  {
+    image: one,
+    capacity: '1',
+    deposit: '96,280',
+    description:
+      'This package is suitable for powering small appliances such as LED bulbs, fans, laptops, and phone chargers, but it cannot support TVs, refrigerators, or any heavy-duty appliances.',
+    appliances: [
+      { name: 'Mobile Phones', watts: 40, quantity: 4 },
+      { name: 'Energy Saving Bulb', watts: 10, quantity: 1 },
+      { name: 'Home Theatre', watts: 50, quantity: 1 },
+      { name: 'Laptops', watts: 65, quantity: 1 },
+      { name: 'Standing Fan', watts: 70, quantity: 1 },
+    ],
+    moreApliances: [
+      { name: 'Ceiling Fan', watts: 40, quantity: 1 },
+      { name: 'Blender', watts: 60, quantity: 1 },
+      { name: 'Diffuser', watts: 30, quantity: 1 },
+    ],
   },
 ];
 
@@ -80,8 +149,7 @@ export const whyChooseUs = [
   {
     id: 3,
     title: 'Flexible Financing Plans',
-    description:
-      `Synafare provides adaptable financing options, allowing
+    description: `Synafare provides adaptable financing options, allowing
 businesses to choose plans that align with their cash flow and growth targets.`,
     image: trackPayment,
     bgColor: '#FFFAF0',
@@ -119,16 +187,24 @@ have helped us meet increasing demand while ensuring smooth operations.`,
 
 export const navLinks = [
   {
+    title: 'Our Solution',
+    route: '/',
+    id: 'our-solution',
+  },
+  {
+    title: 'Solar Packages',
+    route: PATHS.PACKAGES,
+    id: '',
+  },
+  {
     title: 'Why choose us',
+    route: '/',
     id: 'why-choose-us',
   },
   {
     title: 'Testimonial',
+    route: '/',
     id: 'testimonial',
-  },
-  {
-    title: 'FAQs',
-    id: 'faq',
   },
 ];
 

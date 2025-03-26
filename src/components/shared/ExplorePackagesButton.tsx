@@ -1,19 +1,19 @@
 import { FaArrowRight } from 'react-icons/fa';
 
-const Button = () => {
+const ExplorePackagesButton = () => {
   return (
     <button>
       <a
         href="https://forms.zohopublic.eu/segunsyna1/form/GetElectrifiedSignUpforSolarFinancing/formperma/KEQIyoZbvVhUDC6l_11JEPpjefZdIrNBmNmpj4Q2W8E"
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center justify-center w-[150px]  space-x-2 text-white bg-[#201E1F] py-2 px-3 rounded-lg border-2 text-sm border-[#4F986A] "
+        className="flex items-center justify-center  space-x-2 text-white bg-[#201E1F] py-2 px-3 rounded-lg border-2 text-sm border-[#4F986A] "
       >
-        <p>Register</p>
+        <p>Explore Solar Packages</p>
         <FaArrowRight className="mt-1" />
       </a>
     </button>
   );
 };
 
-export default Button;
+export default ExplorePackagesButton;

@@ -15,10 +15,8 @@ const Footer = () => {
             <ul className="text-sm font-light  mt-6">
               {navLinks.map((d, i) => {
                 return (
-                  <Link to={d.id} smooth={true} duration={1000} offset={-90}>
-                    <li className="mt-5" key={i}>
-                      {d.title}
-                    </li>
+                  <Link key={i} to={d.id} smooth={true} duration={1000} offset={-90}>
+                    <li className="mt-5">{d.title}</li>
                   </Link>
                 );
               })}

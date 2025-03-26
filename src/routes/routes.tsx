@@ -1,9 +1,12 @@
 import { PATHS } from '../utils/enum';
-import { AppRoute } from '../types/route';
+import { AppRoute } from '../types';
 import { Navigate } from 'react-router-dom';
 import LandingPage from '../pages/landingPage';
+import Packages from '../pages/packages';
+import Package from '../pages/packages/package';
+import InstallmentalPayment from '../pages/packages/package/installmentalPayment';
 
-const { ROOT, HOME } = PATHS;
+const { ROOT, HOME, PACKAGES, PACKAGE, INSTALLMENTAL_FORM } = PATHS;
 
 export const ROUTES: AppRoute[] = [
   {
@@ -13,6 +16,18 @@ export const ROUTES: AppRoute[] = [
   {
     path: HOME,
     element: <LandingPage />,
+  },
+  {
+    path: PACKAGES,
+    element: <Packages />,
+  },
+  {
+    path: PACKAGE,
+    element: <Package />,
+  },
+  {
+    path: INSTALLMENTAL_FORM,
+    element: <InstallmentalPayment />,
   },
   {
     path: '*',
