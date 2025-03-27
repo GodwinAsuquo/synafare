@@ -14,7 +14,7 @@ const InstallmentalPayment = () => {
   return (
     <div className="my-32">
       {/* breadcrumbs  */}
-      <div className="flex items-center space-x-2 fixed top-0 pt-28 pb-5 w-full z-40 bg-white px-5 lg:px-24 overflow-x-scroll">
+      <div className="flex items-center space-x-2 fixed top-0 pt-28 pb-5 w-full z-40 bg-white px-5 lg:px-24 overflow-x-scroll text-nowrap">
         <p onClick={() => navigate('/')} className="text-[#667185] text-nowrap hover:cursor-pointer">
           Home
         </p>
@@ -33,7 +33,7 @@ const InstallmentalPayment = () => {
         <p className=" text-[#344054] font-semibold text-nowrap">Payment</p>
       </div>
 
-      <div className="pt-10 lg:pt-20 md:w-[60%] lg:w-[40%] mx-auto">
+      <div className="pt-20 md:w-[60%] lg:w-[40%] mx-auto">
         <h2 className="text-[#101928] text-center text-2xl md:text-3xl font-semibold">Installation Payment Form</h2>
         <p className="text-[#667185] text-center font-light mt-3">
           Spread your balance over monthly installments or pay in full. Choose a plan that suits you.
