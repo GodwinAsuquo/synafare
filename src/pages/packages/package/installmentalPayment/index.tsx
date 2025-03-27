@@ -30,7 +30,7 @@ const InstallmentalPayment = () => {
           {title}
         </p>
         <img src={chevronRight} alt="chevron right" />
-        <p className=" text-[#344054] font-semibold text-nowrap mr-10">Payment</p>
+        <p className=" text-[#344054] font-semibold text-nowrap mr-10">Payment form</p>
       </div>
 
       <div className="pt-10 md:pt-20 md:w-[60%] lg:w-[40%] mx-auto">

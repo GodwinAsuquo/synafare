@@ -202,7 +202,7 @@ export const navLinks = [
     id: 'why-choose-us',
   },
   {
-    title: 'Testimonial',
+    title: 'Testimonials',
     route: '/',
     id: 'testimonial',
   },

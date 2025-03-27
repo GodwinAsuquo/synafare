@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import logo from '../../assets/icons/logo.svg';
 import { MdOutlineSubject } from 'react-icons/md';
 import { TbSunOff } from 'react-icons/tb';
-import { Link, scroller } from 'react-scroll';
+import { scroller } from 'react-scroll';
 import { navLinks } from '../../utils/constants';
 import { useNavigate } from 'react-router-dom';
 
@@ -46,9 +46,7 @@ const Navbar = () => {
   return (
     <>
       <nav className="fixed z-50 flex justify-between items-center text-white backdrop-blur-sm bg-black/30 w-[90%] left-1/2 -translate-x-1/2 top-4 px-4 py-1 text-sm rounded-xl max-w-7xl">
-        <Link to="top" smooth={true} duration={1000}>
-          <img src={logo} alt="logo" className="w-[67px]" />
-        </Link>
+        <img onClick={() => navigate('/')} src={logo} alt="logo" className="w-[67px]" />
 
         {/* Desktop Navigation */}
         <ul className="hidden lg:flex items-center space-x-10">
@@ -109,18 +107,16 @@ const Navbar = () => {
         <ul className="flex flex-col space-y-12 p-8 mt-8 text-white">
           {navLinks.map((link, index) => {
             return (
-           
-        
-                <li key={index}
-                  className="cursor-pointer text-base hover:text-gray-300 transition-colors text-left"
-                  onClick={() => {
-                    handleNavClick(link);
-                    closeMobileNav();
-                  }}
-                >
-                  {link.title}
-                </li>
-          
+              <li
+                key={index}
+                className="cursor-pointer text-base hover:text-gray-300 transition-colors text-left"
+                onClick={() => {
+                  handleNavClick(link);
+                  closeMobileNav();
+                }}
+              >
+                {link.title}
+              </li>
             );
           })}
           <li className="">

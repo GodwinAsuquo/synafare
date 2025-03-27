@@ -1,7 +1,10 @@
-import { Link } from 'react-scroll';
+import { useNavigate } from 'react-router-dom';
 import BecomePartnerButton from '../../components/shared/BecomePartnerButton';
+import { PATHS } from '../../utils/enum';
 
 const Hero = () => {
+  const navigate = useNavigate();
+
   return (
     <section id="top">
       <div className="relative w-full h-screen md:h-[820px]">
@@ -25,11 +28,13 @@ const Hero = () => {
               homeowner seeking flexible payment plans.
             </p>
             <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-2 mx-auto w-fit text-sm">
-              <Link to="services" smooth={true} duration={1000} offset={-90}>
-                <button className="text-primary bg-white py-2 px-2 md:px-3 rounded-lg border-2 border-white">
-                  Explore Solar Packages
-                </button>
-              </Link>
+              <button
+                onClick={() => navigate(PATHS.PACKAGES)}
+                className="text-primary bg-white py-2 px-2 md:px-3 rounded-lg border-2 border-white"
+              >
+                Explore Solar Packages
+              </button>
+
               <BecomePartnerButton />
             </div>
           </div>
