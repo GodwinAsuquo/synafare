@@ -7,7 +7,7 @@ const client = createClient({
 });
 
 export const fetchInverterPackages = async () => {
-  const query = `*[_type == "inverterPackages"] | order(capacity asc) {
+  const query = `*[_type == "inverterPackages"] | order(inverterCapacity asc) {
     _id,
     title,
     "slug": slug.current,

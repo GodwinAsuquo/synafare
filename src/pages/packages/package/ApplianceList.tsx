@@ -507,7 +507,7 @@ const AppliancesList: React.FC<AppliancesListProps> = ({ inverterPackage, allPac
         <p className="text-lg">
           Total Uptime{' '}
           <span className="text-purple-600 font-medium text-xl">
-            {backupTime - 4} - {backupTime} hrs
+            {backupTime - 4}-{backupTime} hrs
           </span>
         </p>
       </div>
