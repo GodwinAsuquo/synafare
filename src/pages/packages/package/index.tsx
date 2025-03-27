@@ -31,7 +31,7 @@ const Package = () => {
   return (
     <div className="my-32">
       {/* breadcrumbs  */}
-      <div className="flex items-center space-x-2 fixed top-0 pt-28 pb-5 z-40 bg-white px-5 lg:px-24 overflow-x-scroll text-nowrap">
+      <div className="flex items-center space-x-2 fixed top-0 pt-28 pb-5 z-40 bg-white px-5 lg:px-24 overflow-x-scroll text-nowrap whitespace-nowrap">
         <p onClick={() => navigate('/')} className="text-[#667185] text-nowrap hover:cursor-pointer">
           Home
         </p>
@@ -40,7 +40,7 @@ const Package = () => {
           Our Products
         </p>
         <img src={chevronRight} alt="chevron right" />
-        <p className="text-[#344054] font-semibold text-nowrap hover:cursor-pointer ">{title}</p>
+        <p className="text-[#344054] font-semibold text-nowrap hover:cursor-pointer mr-10">{title}</p>
       </div>
 
       <div className="lg:flex items-start justify-between gap-12 pt-14 bg-white px-5 lg:px-24 lg:w-[95%] mx-auto">
