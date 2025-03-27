@@ -31,7 +31,7 @@ const Package = () => {
   return (
     <div className="my-32">
       {/* breadcrumbs  */}
-      <div className="flex items-center space-x-2 fixed top-0 pt-28 pb-5 w-full z-40 bg-white px-5 lg:px-24 overflow-x-scroll text-nowrap">
+      <div className="flex items-center space-x-2 fixed top-0 pt-28 pb-5 z-40 bg-white px-5 lg:px-24 overflow-x-scroll text-nowrap">
         <p onClick={() => navigate('/')} className="text-[#667185] text-nowrap hover:cursor-pointer">
           Home
         </p>
