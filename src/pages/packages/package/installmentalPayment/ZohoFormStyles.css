@@ -1,0 +1,242 @@
+/* Zoho Form Styles */
+@charset "UTF-8";
+
+.zf-templateWidth {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.zf-templateWrapper {
+  background: #fff;
+  border-radius: 0.5rem;
+}
+
+/* Template Header */
+.zf-tempHeadBdr {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.zf-tempHeadContBdr {
+  background: #494949;
+  border-bottom: 1px solid #EAEAEA;
+  margin: 0;
+  padding: 1rem 1.5rem;
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.zf-tempHeadContBdr .zf-frmTitle {
+  color: #FFFFFF;
+  margin: 0;
+  padding: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.zf-subContWrap {
+  padding: 0;
+  margin: 1rem;
+}
+
+/* Form Wrapper */
+.zf-tempFrmWrapper {
+  padding: 0.75rem 0;
+  margin: 1px 0;
+}
+
+.zf-tempFrmWrapper .zf-labelName {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #101928;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+/* Input Fields */
+.zf-tempContDiv input[type="text"],
+.zf-tempContDiv input[type="number"], 
+.zf-tempContDiv textarea, 
+.zf-tempContDiv select {
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  padding: 0.625rem;
+  font-size: 0.875rem;
+  width: 100%;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+
+
+.zf-tempContDiv input[type="text"]:hover, 
+.zf-tempContDiv textarea:hover,
+.zf-tempContDiv select:hover {
+  border-color: #9ca3af;
+}
+
+.zf-tempContDiv input[type="text"]:focus, 
+.zf-tempContDiv textarea:focus,
+.zf-tempContDiv select:focus {
+  border-color: #FEC601;
+  outline: none;
+  box-shadow: 0 0 0 1px rgba(254, 198, 1, 0.5);
+}
+
+/* Required Fields */
+.zf-important {
+  color: #ef4444 !important;
+  font-weight: normal;
+  margin-left: 0.25rem;
+}
+
+/* Error Messages */
+.zf-errorMessage {
+  font-size: 0.75rem;
+  color: #ef4444;
+  margin-top: 0.25rem;
+}
+
+/* Instructions */
+.zf-instruction {
+  color: #6b7280;
+  font-style: italic;
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+}
+
+/* Name Fields */
+.zf-name .zf-tempContDiv span {
+  display: block;
+  float: left;
+  width: 48%;
+  margin-bottom: 0.5rem;
+}
+
+.zf-name .zf-tempContDiv span:first-child {
+  margin-right: 4%;
+}
+
+.zf-name .zf-tempContDiv span label {
+  display: block;
+  color: #6b7280;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+/* Phone Fields */
+.zf-phonefld .zf-phwrapper {
+  width: 100%;
+}
+
+.zf-phonefld .zf-phwrapper span {
+  width: 100%;
+}
+
+.zf-phonefld .zf-phwrapper span label {
+  display: block;
+  color: #6b7280;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+/* Checkbox */
+.zf-tempContDiv input[type="checkbox"] {
+  margin-right: 0.5rem;
+  width: 1rem;
+  height: 1rem;
+}
+
+.zf-checkbox .zf-tempContDiv .zf-overflow {
+  margin-top: 0.5rem;
+}
+
+.zf-multiAttType {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.zf-checkChoice {
+  display: block;
+  padding-top: 0.125rem;
+}
+
+/* File Upload */
+.zf-tempContDiv input[type="file"] {
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+/* Address */
+.zf-address .zf-tempContDiv .zf-addOne {
+  width: 100%;
+  margin-bottom: 0.75rem;
+}
+
+.zf-address .zf-tempContDiv .zf-addtwo {
+  width: 100%;
+  margin-right: 4%;
+  margin-bottom: 0.75rem;
+}
+
+.zf-address .zf-tempContDiv .zf-addtwo:last-child {
+  margin-right: 0;
+}
+
+.zf-address .zf-tempContDiv span label {
+  display: block;
+  color: #6b7280;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+/* Submit Button */
+.zf-fmFooter {
+  margin: 1.5rem 0;
+  padding: 0 1.5rem;
+  text-align: center;
+}
+
+.zf-submitColor {
+  background-color: #FEC601;
+  color: #000;
+  font-weight: 600;
+  padding: 0.625rem 1.5rem;
+  border-radius: 0.375rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.zf-submitColor:hover {
+  background-color: #fbbf24;
+}
+
+/* Utility Classes */
+.zf-clearBoth {
+  clear: both;
+}
+
+.zf-flLeft {
+  float: left;
+}
+
+.zf-flRight {
+  float: right;
+}
+
+.zf-eclearBoth {
+  clear: both;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .zf-name .zf-tempContDiv span,
+  .zf-address .zf-tempContDiv .zf-addtwo {
+    width: 100%;
+    margin-right: 0;
+  }
+}

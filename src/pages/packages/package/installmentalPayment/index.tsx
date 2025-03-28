@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import chevronRight from '../../../../assets/icons/chevronRight.svg';
-import InstallmentalPaymentForm from './InstallmentalPaymentForm';
+// import InstallmentalPaymentForm from './InstallmentalPaymentForm';
 import { PATHS } from '../../../../utils/enum';
+import ZohoSolarForm from './ZohoSolarForm';
 
 const InstallmentalPayment = () => {
   const navigate = useNavigate();
@@ -10,7 +11,8 @@ const InstallmentalPayment = () => {
 
   console.log({ inverterPackage });
 
-  const { title, slug } = inverterPackage;
+  const { title, slug, cost } = inverterPackage || {};
+
   return (
     <div className="my-32">
       {/* breadcrumbs  */}
@@ -30,16 +32,29 @@ const InstallmentalPayment = () => {
           {title}
         </p>
         <img src={chevronRight} alt="chevron right" />
-        <p className=" text-[#344054] font-semibold text-nowrap mr-10">Payment form</p>
+        <p className=" text-[#344054] font-semibold text-nowrap mr-10">Installation Payment Form</p>
       </div>
 
-      <div className="pt-10 md:pt-20 md:w-[60%] lg:w-[40%] mx-auto">
+      <div className="pt-10 md:pt-20 md:w-[60%] lg:w-[40%]  mx-auto">
         <h2 className="text-[#101928] text-center text-2xl md:text-3xl font-semibold">Installation Payment Form</h2>
         <p className="text-[#667185] text-center font-light mt-3">
           Spread your balance over monthly installments or pay in full. Choose a plan that suits you.
         </p>
         <div className="mt-5">
-          <InstallmentalPaymentForm />
+          {/* <InstallmentalPaymentForm /> */}
+          <ZohoSolarForm
+            preSelectedPackage={inverterPackage ? `${title} - ₦${cost.toLocaleString()}` : ''}
+            packageCost={cost}
+            inverterPackage={inverterPackage}
+          />
+
+          {/* <iframe
+            aria-label="Get Electrified, Sign-Up for Solar Financing"
+            width="100%"
+            height="2000"
+            // frameBorder="0"
+            src="https://forms.zohopublic.eu/segunsyna1/form/GetElectrifiedSignUpforSolarFinancing/formperma/KEQIyoZbvVhUDC6l_11JEPpjefZdIrNBmNmpj4Q2W8E"
+          ></iframe> */}
         </div>
       </div>
     </div>

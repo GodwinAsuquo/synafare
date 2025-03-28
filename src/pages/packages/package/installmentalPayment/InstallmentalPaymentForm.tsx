@@ -221,6 +221,7 @@ const InstallmentalPaymentForm: React.FC = () => {
     formik.setFieldValue('downPayment', formattedValue);
   };
 
+  
  
 
   return (
@@ -628,6 +629,9 @@ const InstallmentalPaymentForm: React.FC = () => {
           Submit Application
         </button>
       </form>
+
+
+      
     </div>
   );
 };
