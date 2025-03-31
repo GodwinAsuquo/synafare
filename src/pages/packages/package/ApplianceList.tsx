@@ -586,7 +586,7 @@ const AppliancesList: React.FC<AppliancesListProps> = ({ inverterPackage, allPac
         </p>
         <p className="italic text-sm">
           (Estimated Backup Time is the approximate duration the battery can supply power when solar input or power from
-          the grid is insufficient or unavailable.)
+          the grid is insufficient or unavailable)
         </p>
       </div>
 
