@@ -25,14 +25,14 @@ interface AppliancesListProps {
 
 // Battery efficiency constants by type
 const BATTERY_EFFICIENCY: Record<BatteryType, number> = {
-  'lithiumBattery': 0.9, // 90% efficiency for lithium-ion
-  'leadAcidBattery': 0.75, // 75% efficiency for lead-acid
+  lithiumBattery: 0.9, // 90% efficiency for lithium-ion
+  leadAcidBattery: 0.75, // 75% efficiency for lead-acid
 };
 
 // Default depth of discharge by battery type
 const DEPTH_OF_DISCHARGE: Record<BatteryType, number> = {
-  'lithiumBattery': 0.9, // Can use up to 90% of lithium-ion capacity
-  'leadAcidBattery': 0.5, // Can use up to 50% of lead-acid capacity
+  lithiumBattery: 0.9, // Can use up to 90% of lithium-ion capacity
+  leadAcidBattery: 0.5, // Can use up to 50% of lead-acid capacity
 };
 
 /**
@@ -80,6 +80,11 @@ const calculateBackupTime = (
   // Provide a range (±10% variance to account for real-world variations)
   const minBackupTime = Math.max(Math.round(calculatedBackupTime * 0.9), 0);
   const maxBackupTime = Math.round(calculatedBackupTime * 1.1);
+
+  // If min and max are the same, add 1 to max
+  if (minBackupTime === maxBackupTime) {
+    return { min: minBackupTime, max: maxBackupTime + 1 };
+  }
 
   return { min: minBackupTime, max: maxBackupTime };
 };
