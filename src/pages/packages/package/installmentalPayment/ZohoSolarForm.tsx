@@ -72,13 +72,11 @@ const ZohoSolarForm: React.FC<ZohoSolarFormProps> = ({ preSelectedPackage, packa
   const [repaymentMonths, setRepaymentMonths] = useState<string>('6');
   const [monthlyPayment, setMonthlyPayment] = useState<string>('0');
 
-  // Unique identifier to avoid duplication errors
-  const [formUniqueId] = useState<string>(`${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
-
   // Form input states
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
   const [phoneNumber, setPhoneNumber] = useState<number>();
+  const [phoneDisplay, setPhoneDisplay] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [streetAddress, setStreetAddress] = useState<string>('');
   const [addressLine2, setAddressLine2] = useState<string>('');
@@ -144,12 +142,14 @@ const ZohoSolarForm: React.FC<ZohoSolarFormProps> = ({ preSelectedPackage, packa
       const months = parseInt(repaymentMonths) || 6;
       const remainingAmount = selectedPackagePrice - downPayment;
 
-      // Calculate including 5-7% interest (using 6% as average)
       const interestRate = 0.06; // 6% monthly interest
-      const totalWithInterest = remainingAmount * (1 + (interestRate * months) / 12);
 
-      const monthlyPaymentValue = Math.round(totalWithInterest / months);
-      setMonthlyPayment(monthlyPaymentValue.toLocaleString());
+      const monthlyPaymentValue = remainingAmount / months;
+
+      const interest = remainingAmount * interestRate;
+
+      const monthlyPaymentValueWithInterest = Math.round(monthlyPaymentValue + interest);
+      setMonthlyPayment(monthlyPaymentValueWithInterest.toLocaleString());
     }
   }, [selectedPackagePrice, downPayment, repaymentMonths]);
 
@@ -472,10 +472,13 @@ const ZohoSolarForm: React.FC<ZohoSolarFormProps> = ({ preSelectedPackage, packa
     // Only allow numeric characters
     const numericValue = e.target.value.replace(/\D/g, '');
 
+    // Update the display value (preserves leading zeros)
+    setPhoneDisplay(numericValue);
+
     if (numericValue === '') {
       setPhoneNumber(undefined);
     } else {
-      // Convert to number and store
+      // Convert to number and store for the API
       setPhoneNumber(parseInt(numericValue, 10));
     }
 
@@ -618,7 +621,7 @@ const ZohoSolarForm: React.FC<ZohoSolarFormProps> = ({ preSelectedPackage, packa
                         name="PhoneNumber_countrycode"
                         maxLength={20}
                         checktype="c7"
-                        value={phoneNumber || ''}
+                        value={phoneDisplay} // Use the display value here
                         onChange={handlePhoneChange}
                         phoneFormat="1"
                         isCountryCodeEnabled={false}
@@ -647,7 +650,7 @@ const ZohoSolarForm: React.FC<ZohoSolarFormProps> = ({ preSelectedPackage, packa
                       fieldType={9}
                       type="text"
                       maxLength={255}
-                      name={`Email_${formUniqueId}`} // Add unique identifier to prevent duplicates
+                      name="Email"
                       checktype="c5"
                       value={email}
                       onChange={handleEmailChange}
@@ -818,9 +821,7 @@ const ZohoSolarForm: React.FC<ZohoSolarFormProps> = ({ preSelectedPackage, packa
                       <p id="Number_error" className="zf-errorMessage" style={{ display: 'none' }}>
                         Invalid value
                       </p>
-                      <p className="zf-instruction">
-                        (P.S: We charge an interest rate of 5%-7% per month on the financed amount)
-                      </p>
+                      <p className="zf-instruction">We charge a fixed interest of 6% monthly</p>
 
                       {downPayment !== undefined && repaymentMonths && (
                         <div className="mt-2 p-3 bg-gray-100 border border-gray-300 rounded-lg">

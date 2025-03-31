@@ -4,7 +4,7 @@ import { FaPlus } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import warning from '../../../assets/icons/warning.svg';
 import packageWorksIcon from '../../../assets/icons/packageWorks.svg';
-import { type BatteryType, type SelectedAppliance } from '../../../helpers';
+import { BatteryType, SelectedAppliance } from '../../../types';
 
 // Updated props interface
 interface AppliancesListProps {
@@ -23,16 +23,70 @@ interface AppliancesListProps {
   allPackages?: any[];
 }
 
+// Battery efficiency constants by type
+const BATTERY_EFFICIENCY: Record<BatteryType, number> = {
+  'lithiumBattery': 0.9, // 90% efficiency for lithium-ion
+  'leadAcidBattery': 0.75, // 75% efficiency for lead-acid
+};
+
+// Default depth of discharge by battery type
+const DEPTH_OF_DISCHARGE: Record<BatteryType, number> = {
+  'lithiumBattery': 0.9, // Can use up to 90% of lithium-ion capacity
+  'leadAcidBattery': 0.5, // Can use up to 50% of lead-acid capacity
+};
+
+/**
+ * Calculate backup time based on selected appliances and battery capacity
+ *
+ * @param selectedAppliances - List of all selected appliances
+ * @param batteryCapacityKwh - Battery capacity in kWh
+ * @param batteryType - Type of battery
+ * @returns Object with min and max backup time in hours
+ */
+const calculateBackupTime = (
+  selectedAppliances: SelectedAppliance[],
+  batteryCapacityKwh: number,
+  batteryType: BatteryType
+): { min: number; max: number } => {
+  // Filter for selected appliances
+  const activeAppliances = selectedAppliances.filter((app) => app.selected);
+
+  if (activeAppliances.length === 0 || batteryCapacityKwh <= 0) {
+    return { min: 0, max: 0 };
+  }
+
+  // Calculate total watt-hours required
+  const totalWatts = activeAppliances.reduce((total, app) => {
+    return total + app.watts * app.quantity;
+  }, 0);
+
+  // Convert watts to kilowatts
+  const totalKilowatts = totalWatts / 1000;
+
+  // If there's no load, prevent division by zero
+  if (totalKilowatts === 0) {
+    return { min: 24, max: 24 }; // If no load, battery will last maximum time
+  }
+
+  // Calculate usable battery capacity based on battery type
+  const usableBatteryCapacity = batteryCapacityKwh * DEPTH_OF_DISCHARGE[batteryType];
+
+  // Factor in battery efficiency
+  const efficiency = BATTERY_EFFICIENCY[batteryType];
+
+  // Calculate actual backup time (hours) = usable battery capacity (kWh) / total load (kW)
+  const calculatedBackupTime = (usableBatteryCapacity * efficiency) / totalKilowatts;
+
+  // Provide a range (±10% variance to account for real-world variations)
+  const minBackupTime = Math.max(Math.round(calculatedBackupTime * 0.9), 0);
+  const maxBackupTime = Math.round(calculatedBackupTime * 1.1);
+
+  return { min: minBackupTime, max: maxBackupTime };
+};
+
 const AppliancesList: React.FC<AppliancesListProps> = ({ inverterPackage, allPackages = [] }) => {
   const navigate = useNavigate();
-  const {
-    title,
-    inverterCapacity,
-    cost,
-    batteryCapacity,
-    batteryType,
-    backupTime = 12, // Default to 12 if not provided
-  } = inverterPackage;
+  const { title, inverterCapacity, cost, batteryCapacity, batteryType } = inverterPackage;
 
   // Handle both defaultAppliances and appliances properties
   const defaultAppliancesArray = inverterPackage.defaultAppliances || inverterPackage.appliances || [];
@@ -42,6 +96,9 @@ const AppliancesList: React.FC<AppliancesListProps> = ({ inverterPackage, allPac
   const [selectedAppliances, setSelectedAppliances] = useState<SelectedAppliance[]>([]);
   const [additionalAppliances, setAdditionalAppliances] = useState<SelectedAppliance[]>([]);
   const [totalLoad, setTotalLoad] = useState<string>('0'); // Will be calculated after initialization
+
+  // New state for backup time
+  const [backupTime, setBackupTime] = useState<{ min: number; max: number }>({ min: 0, max: 0 });
 
   // Flag to skip initial calculation
   const isInitialRender = useRef<boolean>(true);
@@ -156,6 +213,9 @@ const AppliancesList: React.FC<AppliancesListProps> = ({ inverterPackage, allPac
           const initialTotalLoad = calculateTotalLoad(allAppliances);
           setTotalLoad(initialTotalLoad);
 
+          // Calculate initial backup time
+          setBackupTime(calculateBackupTime(allAppliances, batteryCapacity, batteryType));
+
           // Check if initial load exceeds capacity
           const isOver = parseFloat(initialTotalLoad) >= parseFloat(inverterCapacity) * 0.8;
           setIsOverCapacity(isOver);
@@ -216,6 +276,9 @@ const AppliancesList: React.FC<AppliancesListProps> = ({ inverterPackage, allPac
       const initialTotalLoad = calculateTotalLoad(defaultAppliances);
       setTotalLoad(initialTotalLoad);
 
+      // Calculate initial backup time
+      setBackupTime(calculateBackupTime(defaultAppliances, batteryCapacity, batteryType));
+
       // Check if initial load exceeds capacity
       const isOver = parseFloat(initialTotalLoad) >= parseFloat(inverterCapacity) * 0.8;
       setIsOverCapacity(isOver);
@@ -258,6 +321,9 @@ const AppliancesList: React.FC<AppliancesListProps> = ({ inverterPackage, allPac
     const newTotalLoad = calculateTotalLoad(allAppliances);
     setTotalLoad(newTotalLoad);
 
+    // Calculate backup time with the updated appliances
+    setBackupTime(calculateBackupTime(allAppliances, batteryCapacity, batteryType));
+
     // Check if total load exceeds 80% of inverter capacity
     const isOver = parseFloat(newTotalLoad) >= parseFloat(inverterCapacity) * 0.8;
 
@@ -291,7 +357,15 @@ const AppliancesList: React.FC<AppliancesListProps> = ({ inverterPackage, allPac
         setShowModal(true);
       }
     }
-  }, [selectedAppliances, additionalAppliances, inverterCapacity, allPackages, isOverCapacity]);
+  }, [
+    selectedAppliances,
+    additionalAppliances,
+    inverterCapacity,
+    batteryCapacity,
+    batteryType,
+    allPackages,
+    isOverCapacity,
+  ]);
 
   // Toggle selection status of an appliance
   const toggleSelection = (index: number, isDefault: boolean): void => {
@@ -505,10 +579,14 @@ const AppliancesList: React.FC<AppliancesListProps> = ({ inverterPackage, allPac
           <span className="text-[#1671D9] font-medium text-xl">{inverterCapacity}kVa</span>
         </p>
         <p className="text-lg">
-          Total Uptime{' '}
+          Estimated Backup Time:{' '}
           <span className="text-purple-600 font-medium text-xl">
-            {backupTime - 4}-{backupTime} hrs
+            {backupTime.min}-{backupTime.max} hrs
           </span>
+        </p>
+        <p className="italic text-sm">
+          (Estimated Backup Time is the approximate duration the battery can supply power when solar input or power from
+          the grid is insufficient or unavailable.)
         </p>
       </div>
 

@@ -38,3 +38,12 @@ interface InverterPackage {
 export interface AppliancesListProps {
   inverterPackage: InverterPackage;
 }
+
+export type BatteryType = 'lithiumBattery' | 'leadAcidBattery';
+
+export interface SelectedAppliance {
+  name: string;
+  watts: number;
+  quantity: number;
+  selected: boolean;
+}
