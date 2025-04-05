@@ -420,7 +420,7 @@ const PartnerRegistrationForm: React.FC = () => {
     updateAddressErrorState(streetAddress, city, value);
   };
 
-  const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleCountryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setCountry(value);
   };
@@ -497,7 +497,7 @@ const PartnerRegistrationForm: React.FC = () => {
     setGuarantorRegion(e.target.value);
   };
 
-  const handleGuarantorCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleGuarantorCountryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setGuarantorCountry(e.target.value);
   };
 
@@ -507,11 +507,13 @@ const PartnerRegistrationForm: React.FC = () => {
 
   return (
     <div className="pt-10 md:pt-20 md:w-[60%] lg:w-[40%]  mx-auto">
-      <h1 className="text-center text-[#344054] text-xl md:text-2xl mt-16 lg:mt-10 font-semibold">Synafare Partner Registration Form</h1>
+      <h1 className="text-center text-[#344054] text-xl md:text-2xl mt-16 lg:mt-10 font-semibold">
+        Synafare Partner Registration Form
+      </h1>
       <div className="zf-templateWidth">
         {/* General Error Message */}
         {generalError && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 relative" role="alert">
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded my-4 relative" role="alert">
             <strong className="font-bold">Error: </strong>
             <span className="block sm:inline">{generalError}</span>
           </div>
@@ -711,6 +713,7 @@ const PartnerRegistrationForm: React.FC = () => {
                         fieldType={1}
                         placeholder=""
                         className={formErrors.registrationNumber ? 'border-red-500' : ''}
+                        autoComplete="new-password"
                       />
                     </span>
                     <p
@@ -771,24 +774,19 @@ const PartnerRegistrationForm: React.FC = () => {
                         <label>State</label>
                       </span>
                       <span className="zf-flLeft zf-addtwo">
-                        <select
-                          className="zf-form-sBox"
+                        <input
+                          type="text"
+                          maxLength={255}
                           name="Address_Country"
                           checktype="c1"
+                          placeholder=""
                           value={country}
                           onChange={handleCountryChange}
-                        >
-                          <option value="-Select-">-Select-</option>
-                          {/* Including only Nigeria and a few other common options for brevity */}
-                          <option value="Nigeria">Nigeria</option>
-                          <option value="Ghana">Ghana</option>
-                          <option value="Kenya">Kenya</option>
-                          <option value="South Africa">South Africa</option>
-                          <option value="United Kingdom">United Kingdom</option>
-                          <option value="United States">United States</option>
-                        </select>
+                          className={formErrors.address ? 'border-red-500' : ''}
+                        />
                         <label>Country</label>
                       </span>
+                    
                       <div className="zf-clearBoth"></div>
                       <p className="zf-errorMessage" style={{ display: formErrors.address ? 'block' : 'none' }}>
                         {formErrors.address}
@@ -934,136 +932,134 @@ const PartnerRegistrationForm: React.FC = () => {
                   <div className="zf-clearBoth"></div>
                 </li>
 
-                {/* Guarantor Name */}
-                <li className="zf-tempFrmWrapper zf-name zf-namelarge">
-                  <label className="zf-labelName">What is your Guarantor's Name?</label>
-                  <div className="zf-tempContDiv zf-twoType">
-                    <div className="zf-nameWrapper">
-                      <span>
-                        <input
-                          type="text"
-                          maxLength={255}
-                          name="Name1_First"
-                          fieldType={7}
-                          placeholder=""
-                          value={guarantorFirstName}
-                          onChange={handleGuarantorFirstNameChange}
-                        />
-                        <label>First Name</label>
-                      </span>
-                      <span>
-                        <input
-                          type="text"
-                          maxLength={255}
-                          name="Name1_Last"
-                          fieldType={7}
-                          placeholder=""
-                          value={guarantorLastName}
-                          onChange={handleGuarantorLastNameChange}
-                        />
-                        <label>Last Name</label>
-                      </span>
+                {canProvideGuarantor === 'Yes' && (
+                  <>
+                    {/* Guarantor Name */}
+                    <li className="zf-tempFrmWrapper zf-name zf-namelarge">
+                      <label className="zf-labelName">What is your Guarantor's Name?</label>
+                      <div className="zf-tempContDiv zf-twoType">
+                        <div className="zf-nameWrapper">
+                          <span>
+                            <input
+                              type="text"
+                              maxLength={255}
+                              name="Name1_First"
+                              fieldType={7}
+                              placeholder=""
+                              value={guarantorFirstName}
+                              onChange={handleGuarantorFirstNameChange}
+                            />
+                            <label>First Name</label>
+                          </span>
+                          <span>
+                            <input
+                              type="text"
+                              maxLength={255}
+                              name="Name1_Last"
+                              fieldType={7}
+                              placeholder=""
+                              value={guarantorLastName}
+                              onChange={handleGuarantorLastNameChange}
+                            />
+                            <label>Last Name</label>
+                          </span>
+                          <div className="zf-clearBoth"></div>
+                        </div>
+                      </div>
                       <div className="zf-clearBoth"></div>
-                    </div>
-                  </div>
-                  <div className="zf-clearBoth"></div>
-                </li>
+                    </li>
 
-                {/* Guarantor Phone */}
-                <li className="zf-tempFrmWrapper zf-large">
-                  <label className="zf-labelName">What is your Guarantor's Phone Number?</label>
-                  <div className="zf-tempContDiv zf-phonefld">
-                    <div className="zf-phwrapper zf-phNumber">
-                      <span>
-                        <input
-                          type="text"
-                          compname="PhoneNumber1"
-                          name="PhoneNumber1_countrycode"
-                          maxLength={20}
-                          checktype="c7"
-                          value={guarantorPhone}
-                          onChange={handleGuarantorPhoneChange}
-                          phoneFormat="1"
-                          isCountryCodeEnabled={false}
-                          fieldType={11}
-                          id="international_PhoneNumber1_countrycode"
-                          valType="number"
-                          phoneFormatType="1"
-                          placeholder=""
-                        />
-                        <label>Number</label>
-                      </span>
+                    {/* Guarantor Phone */}
+                    <li className="zf-tempFrmWrapper zf-large">
+                      <label className="zf-labelName">What is your Guarantor's Phone Number?</label>
+                      <div className="zf-tempContDiv zf-phonefld">
+                        <div className="zf-phwrapper zf-phNumber">
+                          <span>
+                            <input
+                              type="text"
+                              compname="PhoneNumber1"
+                              name="PhoneNumber1_countrycode"
+                              maxLength={20}
+                              checktype="c7"
+                              value={guarantorPhone}
+                              onChange={handleGuarantorPhoneChange}
+                              phoneFormat="1"
+                              isCountryCodeEnabled={false}
+                              fieldType={11}
+                              id="international_PhoneNumber1_countrycode"
+                              valType="number"
+                              phoneFormatType="1"
+                              placeholder=""
+                            />
+                            <label>Number</label>
+                          </span>
+                          <div className="zf-clearBoth"></div>
+                        </div>
+                      </div>
                       <div className="zf-clearBoth"></div>
-                    </div>
-                  </div>
-                  <div className="zf-clearBoth"></div>
-                </li>
+                    </li>
 
-                {/* Guarantor Address */}
-                <li className="zf-tempFrmWrapper zf-address zf-addrlarge">
-                  <label className="zf-labelName">What is your Guarantor's Address?</label>
-                  <div className="zf-tempContDiv zf-address">
-                    <div className="zf-addrCont">
-                      <span className="zf-addOne">
-                        <input
-                          type="text"
-                          maxLength={255}
-                          name="Address1_AddressLine1"
-                          checktype="c1"
-                          placeholder=""
-                          value={guarantorAddress}
-                          onChange={handleGuarantorAddressChange}
-                        />
-                        <label>Street Address</label>
-                      </span>
-                      <span className="zf-flLeft zf-addtwo">
-                        <input
-                          type="text"
-                          maxLength={255}
-                          name="Address1_City"
-                          checktype="c1"
-                          placeholder=""
-                          value={guarantorCity}
-                          onChange={handleGuarantorCityChange}
-                        />
-                        <label>City</label>
-                      </span>
-                      <span className="zf-flLeft zf-addtwo">
-                        <input
-                          type="text"
-                          maxLength={255}
-                          name="Address1_Region"
-                          checktype="c1"
-                          placeholder=""
-                          value={guarantorRegion}
-                          onChange={handleGuarantorRegionChange}
-                        />
-                        <label>State</label>
-                      </span>
-                      <span className="zf-flLeft zf-addtwo">
-                        <select
-                          className="zf-form-sBox"
-                          name="Address1_Country"
-                          checktype="c1"
-                          value={guarantorCountry}
-                          onChange={handleGuarantorCountryChange}
-                        >
-                          <option value="-Select-">-Select-</option>
-                          {/* Including only Nigeria and a few other common options for brevity */}
-                          <option value="Nigeria">Nigeria</option>
-                          <option value="Ghana">Ghana</option>
-                          <option value="Kenya">Kenya</option>
-                          <option value="South Africa">South Africa</option>
-                          <option value="United Kingdom">United Kingdom</option>
-                          <option value="United States">United States</option>
-                        </select>
-                        <label>Country</label>
-                      </span>
-                      <div className="zf-clearBoth"></div>
-                    </div>
-                  </div>
-                  <div className="zf-eclearBoth"></div>
-                </li>
+                    {/* Guarantor Address */}
+                    <li className="zf-tempFrmWrapper zf-address zf-addrlarge">
+                      <label className="zf-labelName">What is your Guarantor's Address?</label>
+                      <div className="zf-tempContDiv zf-address">
+                        <div className="zf-addrCont">
+                          <span className="zf-addOne">
+                            <input
+                              type="text"
+                              maxLength={255}
+                              name="Address1_AddressLine1"
+                              checktype="c1"
+                              placeholder=""
+                              value={guarantorAddress}
+                              onChange={handleGuarantorAddressChange}
+                            />
+                            <label>Street Address</label>
+                          </span>
+                          <span className="zf-flLeft zf-addtwo">
+                            <input
+                              type="text"
+                              maxLength={255}
+                              name="Address1_City"
+                              checktype="c1"
+                              placeholder=""
+                              value={guarantorCity}
+                              onChange={handleGuarantorCityChange}
+                            />
+                            <label>City</label>
+                          </span>
+                          <span className="zf-flLeft zf-addtwo">
+                            <input
+                              type="text"
+                              maxLength={255}
+                              name="Address1_Region"
+                              checktype="c1"
+                              placeholder=""
+                              value={guarantorRegion}
+                              onChange={handleGuarantorRegionChange}
+                            />
+                            <label>State</label>
+                          </span>
+                          <span className="zf-flLeft zf-addtwo">
+                            <input
+                              type="text"
+                              maxLength={255}
+                              name="Address1_Country"
+                              checktype="c1"
+                              placeholder=""
+                              value={guarantorCountry}
+                              onChange={handleGuarantorCountryChange}
+                            />
+                            <label>Country</label>
+                          </span>
+
+                          <div className="zf-clearBoth"></div>
+                        </div>
+                      </div>
+                      <div className="zf-eclearBoth"></div>
+                    </li>
+                  </>
+                )}
 
                 {/* Bank Statement Upload */}
                 <li className="zf-tempFrmWrapper">
