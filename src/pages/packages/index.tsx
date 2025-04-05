@@ -52,18 +52,16 @@ const Packages = () => {
         </div>
       </div>
 
-      <div className="bg-[#F6F6F6] text-center px-5 py-14 md:px-10 space-y-5 rounded-xl mt-24">
+      {/* <div className="bg-[#F6F6F6] text-center px-5 py-14 md:px-10 space-y-5 rounded-xl mt-24">
         <h1 className="text-3xl lg:text-4xl font-bold">Not sure what setup you need?</h1>
         <p>Let’s help you with a recommendation</p>
-        <a
-          href="https://forms.zohopublic.eu/segunsyna1/form/GetElectrifiedSignUpforSolarFinancing/formperma/KEQIyoZbvVhUDC6l_11JEPpjefZdIrNBmNmpj4Q2W8E"
-          target="_blank"
-          rel="noopener noreferrer"
+        <div
+         onClick={()=>navigate}
           className="flex items-center justify-center space-x-2 text-white bg-[#201E1F] py-2 px-3 rounded-xl border-2 text-sm border-[#4F986A] w-fit mx-auto"
         >
           Get Started
-        </a>
-      </div>
+        </div>
+      </div> */}
     </div>
   );
 };
