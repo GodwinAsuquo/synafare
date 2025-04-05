@@ -5,6 +5,7 @@ import { TbSunOff } from 'react-icons/tb';
 import { scroller } from 'react-scroll';
 import { navLinks } from '../../utils/constants';
 import { useNavigate } from 'react-router-dom';
+import { PATHS } from '../../utils/enum';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -63,14 +64,11 @@ const Navbar = () => {
           })}
         </ul>
 
-        <button className="hidden  lg:flex justify-center  text-white bg-[#201E1F] py-2 px-4 rounded-lg border-2 border-[#4F986A] hover:bg-[#2a2829] transition-colors">
-          <a
-            href="https://forms.zohopublic.eu/segunsyna1/form/GetElectrifiedSignUpforSolarFinancing/formperma/KEQIyoZbvVhUDC6l_11JEPpjefZdIrNBmNmpj4Q2W8E"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Become a Partner
-          </a>
+        <button
+          onClick={() => navigate(PATHS.PARTNER_REGISTRATION_FORM)}
+          className="hidden  lg:flex justify-center  text-white bg-[#201E1F] py-2 px-4 rounded-lg border-2 border-[#4F986A] hover:bg-[#2a2829] transition-colors"
+        >
+          Become a Partner
         </button>
 
         {/* Mobile Menu Button */}
@@ -120,14 +118,11 @@ const Navbar = () => {
             );
           })}
           <li className="">
-            <button className="text-white  flex justify-center bg-[#201E1F] py-2 px-3 mt-32 rounded-lg border-2 border-[#4F986A]">
-              <a
-                href="https://forms.zohopublic.eu/segunsyna1/form/GetElectrifiedSignUpforSolarFinancing/formperma/KEQIyoZbvVhUDC6l_11JEPpjefZdIrNBmNmpj4Q2W8E"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Become a Partner
-              </a>
+            <button
+              onClick={() => navigate(PATHS.PARTNER_REGISTRATION_FORM)}
+              className="text-white  flex justify-center bg-[#201E1F] py-2 px-3 mt-32 rounded-lg border-2 border-[#4F986A]"
+            >
+              Become a Partner
             </button>
           </li>
         </ul>

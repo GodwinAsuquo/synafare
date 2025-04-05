@@ -41,20 +41,11 @@ const InstallmentalPayment = () => {
           Spread your balance over monthly installments or pay in full. Choose a plan that suits you.
         </p>
         <div className="mt-5">
-          {/* <InstallmentalPaymentForm /> */}
           <ZohoSolarForm
             preSelectedPackage={inverterPackage ? `${title} - ₦${cost.toLocaleString()}` : ''}
             packageCost={cost}
             inverterPackage={inverterPackage}
           />
-
-          {/* <iframe
-            aria-label="Get Electrified, Sign-Up for Solar Financing"
-            width="100%"
-            height="2000"
-            // frameBorder="0"
-            src="https://forms.zohopublic.eu/segunsyna1/form/GetElectrifiedSignUpforSolarFinancing/formperma/KEQIyoZbvVhUDC6l_11JEPpjefZdIrNBmNmpj4Q2W8E"
-          ></iframe> */}
         </div>
       </div>
     </div>

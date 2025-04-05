@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import './ZohoFormStyles.css';
+import '../../../../../public/css/ZohoFormStyles.css';
+
 import { useFetchInverterPackages } from '../../../../services/query/useCMS';
 
 // Extend React's TypeScript definitions using interface augmentation

@@ -5,8 +5,9 @@ import LandingPage from '../pages/landingPage';
 import Packages from '../pages/packages';
 import Package from '../pages/packages/package';
 import InstallmentalPayment from '../pages/packages/package/installmentalPayment';
+import PartnerRegistrationForm from '../pages/PartnerRegistrationForm';
 
-const { ROOT, HOME, PACKAGES, PACKAGE, INSTALLMENTAL_FORM } = PATHS;
+const { ROOT, HOME, PACKAGES, PACKAGE, INSTALLMENTAL_FORM, PARTNER_REGISTRATION_FORM} = PATHS;
 
 export const ROUTES: AppRoute[] = [
   {
@@ -28,6 +29,14 @@ export const ROUTES: AppRoute[] = [
   {
     path: INSTALLMENTAL_FORM,
     element: <InstallmentalPayment />,
+  },
+  {
+    path: INSTALLMENTAL_FORM,
+    element: <InstallmentalPayment />,
+  },
+  {
+    path: PARTNER_REGISTRATION_FORM,
+    element: <PartnerRegistrationForm />,
   },
   {
     path: '*',

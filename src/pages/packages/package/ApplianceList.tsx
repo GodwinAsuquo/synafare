@@ -14,7 +14,6 @@ interface AppliancesListProps {
     cost: number;
     batteryCapacity: number;
     batteryType: BatteryType;
-    backupTime?: number;
     defaultAppliances?: any[];
     appliances?: any[];
     moreAppliances?: any[];
