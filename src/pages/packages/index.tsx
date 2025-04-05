@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import chevronRight from '../../assets/icons/chevronRight.svg';
 import { useFetchInverterPackages } from '../../services/query/useCMS';
+import inverterImage from '../../assets/images/inverterImage.png';
 
 const Packages = () => {
   const navigate = useNavigate();
@@ -30,12 +31,15 @@ const Packages = () => {
           {inverterPackages.map((d: any, i: number) => {
             return (
               <div key={i}>
-                <img src={d.imageUrl} alt={d.inverterCapacity} className="rounded-t-lg" />
+                <img
+                  src={d.imageUrl || inverterImage}
+                  alt={d.inverterCapacity}
+                  className="rounded-lg object-cover object-center h-[280px] w-full"
+                />
 
                 <div className="flex flex-col justify-between space-y-4 mt-5">
                   <div className="flex justify-between items-center">
                     <p>{d.title}</p>
-                    {/* <p>₦{(d.cost*0.3).toLocaleString()} deposit</p> */}
                   </div>
                   <p className="line-clamp-2 text-[#667185] text-sm">{d.description}</p>
 
