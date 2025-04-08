@@ -83,7 +83,14 @@ const ZohoSolarForm: React.FC<ZohoSolarFormProps> = ({ preSelectedPackage, packa
   const [addressLine2, setAddressLine2] = useState<string>('');
   const [city, setCity] = useState<string>('');
   const [region, setRegion] = useState<string>('');
+
   const [financingOption, setFinancingOption] = useState<string>('');
+  const [occupation, setOccupation] = useState<string>('');
+  const [showBusinessFields, setShowBusinessFields] = useState<boolean>(false);
+
+  // Occupation/Business related states
+  const [businessName, setBusinessName] = useState<string>('');
+  const [businessNature, setBusinessNature] = useState<string>('');
 
   useEffect(() => {
     // Initialize with preselected package if available
@@ -525,6 +532,25 @@ const ZohoSolarForm: React.FC<ZohoSolarFormProps> = ({ preSelectedPackage, packa
     updateAddressErrorState(streetAddress, city, value);
   };
 
+  // Handle occupation change
+  const handleOccupationChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    setOccupation(value);
+
+    // Show business fields if "Business Owner" or "Both" is selected
+    setShowBusinessFields(value === 'Business Owner' || value === 'Both');
+  };
+
+
+
+  const handleBusinessNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setBusinessName(e.target.value);
+  };
+
+  const handleBusinessNatureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setBusinessNature(e.target.value);
+  };
+
   const updateAddressErrorState = (street: string, city: string, region: string) => {
     if (formErrors.address && street && city && region) {
       setFormErrors({ ...formErrors, address: undefined });
@@ -835,11 +861,17 @@ const ZohoSolarForm: React.FC<ZohoSolarFormProps> = ({ preSelectedPackage, packa
                     <div className="zf-clearBoth"></div>
                   </li>
 
-                  {/* Occupation */}
+                  {/* Occupation Dropdown */}
                   <li className="zf-tempFrmWrapper zf-large">
                     <label className="zf-labelName">What do you do?</label>
                     <div className="zf-tempContDiv">
-                      <select className="zf-form-sBox" name="Dropdown" checktype="c1">
+                      <select
+                        className="zf-form-sBox"
+                        name="Dropdown"
+                        checktype="c1"
+                        value={occupation}
+                        onChange={handleOccupationChange}
+                      >
                         <option value="-Select-">-Select-</option>
                         <option value="Employed">Employed</option>
                         <option value="Business Owner">Business Owner</option>
@@ -851,6 +883,51 @@ const ZohoSolarForm: React.FC<ZohoSolarFormProps> = ({ preSelectedPackage, packa
                     </div>
                     <div className="zf-clearBoth"></div>
                   </li>
+
+                  {/* Conditional Business Fields */}
+                  {showBusinessFields && (
+                    <>
+                     
+
+                      {/* Business Name */}
+                      <li className="zf-tempFrmWrapper zf-large">
+                        <label className="zf-labelName">Business Name</label>
+                        <div className="zf-tempContDiv">
+                          <span>
+                            <input
+                              type="text"
+                              maxLength={255}
+                              name="SingleLine1"
+                              checktype="c1"
+                              value={businessName}
+                              onChange={handleBusinessNameChange}
+                              placeholder=""
+                            />
+                          </span>
+                        </div>
+                        <div className="zf-clearBoth"></div>
+                      </li>
+
+                      {/* Nature of Business */}
+                      <li className="zf-tempFrmWrapper zf-large">
+                        <label className="zf-labelName">Nature of Business</label>
+                        <div className="zf-tempContDiv">
+                          <span>
+                            <input
+                              type="text"
+                              maxLength={255}
+                              name="Dropdown1"
+                              checktype="c1"
+                              value={businessNature}
+                              onChange={handleBusinessNatureChange}
+                              placeholder=""
+                            />
+                          </span>
+                        </div>
+                        <div className="zf-clearBoth"></div>
+                      </li>
+                    </>
+                  )}
 
                   {/* Bank Statement Upload - Optional now */}
                   <li className="zf-tempFrmWrapper">
