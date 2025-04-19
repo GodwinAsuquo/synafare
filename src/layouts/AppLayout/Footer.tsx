@@ -9,8 +9,9 @@ const Footer = () => {
   // Function to handle contact link clicks
   const handleContactClick = (platform: string) => {
     // Track the Contact event for Meta Conversions API
+    // No need to pass userData - our updated service will handle anonymous users
     trackContact({
-      userData: {}, // No user data available at this point
+      userData: {},
       customData: {
         contact_method: platform,
         contact_source: 'footer',

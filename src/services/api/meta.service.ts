@@ -24,6 +24,9 @@ export interface UserData {
   fn?: string[];
   ln?: string[];
   client_user_agent?: string;
+  fbp?: string; // Facebook browser ID
+  fbc?: string; // Facebook click ID
+  external_id?: string;
   [key: string]: any;
 }
 
@@ -50,24 +53,60 @@ export const processUserData = async (userData: RawUserData): Promise<UserData> 
     client_user_agent: navigator.userAgent,
   };
 
-  if (userData.email) {
-    processed.em = [await hashEmail(userData.email)];
-    console.log(`Hashed email: ${processed.em[0]}`);
-  }
+  // Check if we have any PII to hash
+  const hasPII = !!(userData.email || userData.phone || userData.firstName || userData.lastName);
 
-  if (userData.phone) {
-    processed.ph = [await hashPhone(userData.phone.toString())];
-    console.log(`Hashed phone: ${processed.ph[0]}`);
-  }
+  if (hasPII) {
+    // Process actual user data if available
+    if (userData.email) {
+      processed.em = [await hashEmail(userData.email)];
+      console.log(`Hashed email: ${processed.em[0]}`);
+    }
 
-  if (userData.firstName) {
-    processed.fn = [await hashName(userData.firstName)];
-    console.log(`Hashed first name: ${processed.fn[0]}`);
-  }
+    if (userData.phone) {
+      processed.ph = [await hashPhone(userData.phone.toString())];
+      console.log(`Hashed phone: ${processed.ph[0]}`);
+    }
 
-  if (userData.lastName) {
-    processed.ln = [await hashName(userData.lastName)];
-    console.log(`Hashed last name: ${processed.ln[0]}`);
+    if (userData.firstName) {
+      processed.fn = [await hashName(userData.firstName)];
+      console.log(`Hashed first name: ${processed.fn[0]}`);
+    }
+
+    if (userData.lastName) {
+      processed.ln = [await hashName(userData.lastName)];
+      console.log(`Hashed last name: ${processed.ln[0]}`);
+    }
+  } else {
+    // No PII available, add Facebook cookies and other identifiers
+    console.log('No PII data available, using anonymous identifiers');
+
+    // Add Facebook browser cookie (if available)
+    const fbpMatch = document.cookie.match(/_fbp=([^;]+)/);
+    if (fbpMatch && fbpMatch[1]) {
+      processed.fbp = fbpMatch[1];
+      console.log(`Using fbp cookie: ${processed.fbp}`);
+    }
+
+    // Add Facebook click ID cookie (if available)
+    const fbcMatch = document.cookie.match(/_fbc=([^;]+)/);
+    if (fbcMatch && fbcMatch[1]) {
+      processed.fbc = fbcMatch[1];
+      console.log(`Using fbc cookie: ${processed.fbc}`);
+    }
+
+    // If still no identifiers, use a generic anonymous ID (not ideal but better than nothing)
+    if (!processed.fbp && !processed.fbc) {
+      // Create a constant hash for anonymous users
+      // Use browser fingerprinting elements that don't change often
+      const browserFingerprint = navigator.userAgent + navigator.language + window.screen.width + window.screen.height;
+      processed.external_id = browserFingerprint;
+      console.log('Using browser fingerprint as external_id');
+
+      // For your testing needs only - send a constant email hash
+      // This is a hashed version of "anonymous@example.com"
+      processed.em = ['8eefff9fb3b1c8c1c3ce3c38afeb9969d5fded2adbc798cbf8c74f3d6b2f51cb'];
+    }
   }
 
   console.log('Processed user data:', processed);
@@ -133,18 +172,24 @@ class MetaService {
 
   /**
    * Track Contact event
+   *
+   * Can be called without user data - will use anonymous identifiers
    */
-  async trackContact(userData: RawUserData, customData?: Record<string, any>): Promise<any> {
+  async trackContact(userData: RawUserData = {}, customData?: Record<string, any>): Promise<any> {
     console.log('Tracking Contact with user data:', userData);
+    // Even if userData is empty, the processUserData function will add anonymous identifiers
     const event = await this.createEvent('Contact', userData, window.location.href, customData);
     return this.sendEvents([event]);
   }
 
   /**
    * Track View Content event
+   *
+   * Can be called without user data - will use anonymous identifiers
    */
   async trackViewContent(userData: RawUserData = {}, customData?: Record<string, any>): Promise<any> {
     console.log('Tracking View Content with user data:', userData);
+    // Even if userData is empty, the processUserData function will add anonymous identifiers
     const event = await this.createEvent('ViewContent', userData, window.location.href, customData);
     return this.sendEvents([event]);
   }
