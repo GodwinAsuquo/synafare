@@ -1,8 +1,31 @@
 import logo from '../../assets/icons/yellowLogo.svg';
+import useMetaEvents from '../../services/query/useMeta';
 import { navLinks, socialLinks } from '../../utils/constants';
 import { Link } from 'react-scroll';
 
 const Footer = () => {
+  const { trackContact } = useMetaEvents();
+
+  // Function to handle contact link clicks
+  const handleContactClick = (platform: string) => {
+    // Track the Contact event for Meta Conversions API
+    trackContact({
+      userData: {}, // No user data available at this point
+      customData: {
+        contact_method: platform,
+        contact_source: 'footer',
+      },
+    });
+
+    // Also trigger the standard Pixel event if fbq is available
+    if (window.fbq) {
+      window.fbq('track', 'Contact', {
+        content_name: platform,
+        content_category: 'contact',
+      });
+    }
+  };
+
   return (
     <footer className="bg-[#000F06] py-20 lg:px-24 text-white">
       <div className="w-[80%] md:w-[60%] lg:w-[85%] mx-auto max-w-7xl lg:flex items-start justify-between">
@@ -12,7 +35,7 @@ const Footer = () => {
         <div className="flex items-start justify-between lg:space-x-56 mt-16 lg:mt-0">
           <div>
             <h4 className="font-bold">Quick Links</h4>
-            <ul className="text-sm font-light  mt-6">
+            <ul className="text-sm font-light mt-6">
               {navLinks.map((d, i) => {
                 return (
                   <Link key={i} to={d.id} smooth={true} duration={1000} offset={-90}>
@@ -32,7 +55,8 @@ const Footer = () => {
                     href={d.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex space-x-3 items-center "
+                    className="flex space-x-3 items-center"
+                    onClick={() => handleContactClick(d.platform)}
                   >
                     <div className="w-5">
                       <img src={d.icon} alt={d.platform} />
@@ -50,5 +74,12 @@ const Footer = () => {
     </footer>
   );
 };
+
+// Add this to the global scope for TypeScript support
+declare global {
+  interface Window {
+    fbq?: (track: string, eventName: string, params?: any) => void;
+  }
+}
 
 export default Footer;

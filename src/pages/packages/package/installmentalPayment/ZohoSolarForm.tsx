@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import '../../../../../public/css/ZohoFormStyles.css';
 
 import { useFetchInverterPackages } from '../../../../services/query/useCMS';
+import useMetaEvents from '../../../../services/query/useMeta';
 
 // Extend React's TypeScript definitions using interface augmentation
 declare module 'react' {
@@ -35,6 +36,7 @@ interface ZohoSolarFormProps {
 // Add global type to Window for Zoho validation function
 declare global {
   interface Window {
+    fbq?: (track: string, eventName: string, params?: any) => void;
     zf_ValidateAndSubmit?: () => boolean;
     zf_MandArray?: string[];
     updateMandatoryFields?: () => void; // Changed to not require parameters
@@ -57,6 +59,7 @@ interface FormErrors {
 const ZohoSolarForm: React.FC<ZohoSolarFormProps> = ({ preSelectedPackage, packageCost, inverterPackage }) => {
   // Fetch inverter packages
   const { data: inverterPackages, isLoading } = useFetchInverterPackages();
+const { trackCompleteRegistration } = useMetaEvents();
 
   const formRef = useRef<HTMLFormElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -272,37 +275,74 @@ const ZohoSolarForm: React.FC<ZohoSolarFormProps> = ({ preSelectedPackage, packa
   };
 
   // This function will be called on form submission
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+const handleSubmit = (e: React.FormEvent) => {
+  e.preventDefault();
 
-    // First perform client-side validation
-    if (!validateForm()) {
-      // Scroll to the general error message
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
-    }
+  // First perform client-side validation
+  if (!validateForm()) {
+    // Scroll to the general error message
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    return;
+  }
 
-    setIsSubmitting(true);
-    setGeneralError('');
-    setFormErrors({ ...formErrors, submitError: undefined });
+  setIsSubmitting(true);
+  setGeneralError('');
+  setFormErrors({ ...formErrors, submitError: undefined });
 
-    try {
-      // Use native form submit
-      formRef.current?.submit();
+  try {
+    // Track the Complete Registration event for Meta Conversions API
+    if (firstName && lastName) {
+      // Prepare user data for tracking
+       const userData = {
+         email: email || undefined, // If email is empty string, convert to undefined
+         phone: phoneNumber ? phoneNumber.toString() : undefined,
+         firstName: firstName,
+         lastName: lastName,
+       };
 
-      // Set a timeout to reset the submission state after a delay
-      setTimeout(() => {
-        setIsSubmitting(false);
-      }, 5000);
-    } catch (error) {
-      console.error('Form submission error:', error);
-      setIsSubmitting(false);
-      setFormErrors({
-        ...formErrors,
-        submitError: 'An error occurred while submitting the form. Please try again.',
+       console.log('Sending user data to tracking:', userData);
+
+      // Prepare custom data with package information
+      const customData = {
+        package_name: selectedPackage ? selectedPackage.split(' - ')[0] : '',
+        package_value: selectedPackagePrice,
+        financing_option: financingOption,
+        down_payment: downPayment,
+        payment_months: repaymentMonths,
+      };
+
+      // Send the event to Meta
+      trackCompleteRegistration({
+        userData,
+        customData,
       });
+
+      // Also trigger the standard Pixel event if fbq is available
+      if (window.fbq) {
+        window.fbq('track', 'CompleteRegistration', {
+          content_name: selectedPackage,
+          value: selectedPackagePrice,
+          currency: 'NGN',
+        });
+      }
     }
-  };
+
+    // Use native form submit
+    formRef.current?.submit();
+
+    // Set a timeout to reset the submission state after a delay
+    setTimeout(() => {
+      setIsSubmitting(false);
+    }, 5000);
+  } catch (error) {
+    console.error('Form submission error:', error);
+    setIsSubmitting(false);
+    setFormErrors({
+      ...formErrors,
+      submitError: 'An error occurred while submitting the form. Please try again.',
+    });
+  }
+};
 
   // Handle package selection change
   const handlePackageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
