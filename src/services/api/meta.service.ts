@@ -6,7 +6,7 @@ import { hashEmail, hashName, hashPhone } from '../../utils/hashUtils';
 const META_ACCESS_TOKEN =
   import.meta.env.VITE_META_ACCESS_TOKEN ||
   'EAAJfMp7uZCxkBO4ml6XsC7Fg3dxZAZBhObPU0NFUvF9VCSijZCxBhTArha7ojR19I1ZC351BlMukVo7dmFKPX7lKxxQIjUgswoSojMX5ZCCy6DyGyxeh1ZAFBBEPW5SOyDYFNSHFocZAzaA7ZAoJ5OxPzfkcqiGsgSkQkiXOdewj8qfNsDxxmBXFLJtyx340c4QZBGQgZDZD';
-const API_VERSION = 'v18.0';
+const API_VERSION = 'v22.0';
 const PIXEL_ID = '3079243202239861';
 
 // Interfaces
