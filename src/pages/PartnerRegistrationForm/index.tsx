@@ -118,12 +118,17 @@ const PartnerRegistrationForm: React.FC = () => {
             'Address_Region',
             'Address_Country',
             'Dropdown3', // Business type
-            'Dropdown', // Monthly installations
-            'Dropdown1', // Installation cost
-            'Dropdown4', // Monthly sales
             'Dropdown2', // Can provide guarantor
             'FileUpload', // Bank statements
           ];
+
+          // Add conditional required fields based on business type
+          if (businessType === 'Installer') {
+            mandatoryFields.push('Dropdown'); // Monthly installations
+            mandatoryFields.push('Dropdown1'); // Installation cost
+          } else if (businessType === 'Distributor') {
+            mandatoryFields.push('Dropdown4'); // Monthly sales
+          }
 
           // Update global zf_MandArray
           window.zf_MandArray = mandatoryFields;
@@ -141,7 +146,7 @@ const PartnerRegistrationForm: React.FC = () => {
         document.body.removeChild(script);
       }
     };
-  }, []);
+  }, [businessType]);
 
   // Form validation function
   const validateForm = (): boolean => {
@@ -232,25 +237,28 @@ const PartnerRegistrationForm: React.FC = () => {
       missingRequiredFields = true;
     }
 
-    // Validate monthly installations
-    if (!monthlyInstallations || monthlyInstallations === '-Select-') {
-      errors.installations = 'Please select your monthly installations';
-      isValid = false;
-      missingRequiredFields = true;
-    }
+    // Conditional validation based on business type
+    if (businessType === 'Installer') {
+      // Validate monthly installations (only for Installers)
+      if (!monthlyInstallations || monthlyInstallations === '-Select-') {
+        errors.installations = 'Please select your monthly installations';
+        isValid = false;
+        missingRequiredFields = true;
+      }
 
-    // Validate installation cost
-    if (!installationCost || installationCost === '-Select-') {
-      errors.installationCost = 'Please select your average installation cost';
-      isValid = false;
-      missingRequiredFields = true;
-    }
-
-    // Validate monthly sales
-    if (!monthlySales || monthlySales === '-Select-') {
-      errors.monthlySales = 'Please select your monthly sales';
-      isValid = false;
-      missingRequiredFields = true;
+      // Validate installation cost (only for Installers)
+      if (!installationCost || installationCost === '-Select-') {
+        errors.installationCost = 'Please select your average installation cost';
+        isValid = false;
+        missingRequiredFields = true;
+      }
+    } else if (businessType === 'Distributor') {
+      // Validate monthly sales (only for Distributors)
+      if (!monthlySales || monthlySales === '-Select-') {
+        errors.monthlySales = 'Please select your monthly sales';
+        isValid = false;
+        missingRequiredFields = true;
+      }
     }
 
     // Validate guarantor option
@@ -435,6 +443,17 @@ const PartnerRegistrationForm: React.FC = () => {
   const handleBusinessTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
     setBusinessType(value);
+
+    // Clear related fields when business type changes
+    if (value !== 'Installer') {
+      setMonthlyInstallations('');
+      setInstallationCost('');
+    }
+
+    if (value !== 'Distributor') {
+      setMonthlySales('');
+    }
+
     if (formErrors.businessType && value !== '-Select-') {
       setFormErrors({ ...formErrors, businessType: undefined });
     }
@@ -786,7 +805,7 @@ const PartnerRegistrationForm: React.FC = () => {
                         />
                         <label>Country</label>
                       </span>
-                    
+
                       <div className="zf-clearBoth"></div>
                       <p className="zf-errorMessage" style={{ display: formErrors.address ? 'block' : 'none' }}>
                         {formErrors.address}
@@ -821,91 +840,103 @@ const PartnerRegistrationForm: React.FC = () => {
                   <div className="zf-clearBoth"></div>
                 </li>
 
-                {/* Monthly Installations */}
-                <li className="zf-tempFrmWrapper zf-large">
-                  <label className="zf-labelName">
-                    How many installations do you do per month?
-                    <em className="zf-important">*</em>
-                  </label>
-                  <div className="zf-tempContDiv">
-                    <select
-                      className={`zf-form-sBox ${formErrors.installations ? 'border-red-500' : ''}`}
-                      name="Dropdown"
-                      checktype="c1"
-                      value={monthlyInstallations}
-                      onChange={handleMonthlyInstallationsChange}
-                    >
-                      <option value="-Select-">-Select-</option>
-                      <option value="1 - 10">1 - 10</option>
-                      <option value="10 - 30">10 - 30</option>
-                      <option value="30 - 60">30 - 60</option>
-                      <option value="60 - 100">60 - 100</option>
-                    </select>
-                    <p className="zf-errorMessage" style={{ display: formErrors.installations ? 'block' : 'none' }}>
-                      {formErrors.installations}
-                    </p>
-                  </div>
-                  <div className="zf-clearBoth"></div>
-                </li>
+                {/* Conditional Fields based on Business Type */}
+                {businessType === 'Installer' && (
+                  <>
+                    {/* Monthly Installations - Only for Installers */}
+                    <li className="zf-tempFrmWrapper zf-large">
+                      <label className="zf-labelName">
+                        How many installations do you do per month?
+                        <em className="zf-important">*</em>
+                      </label>
+                      <div className="zf-tempContDiv">
+                        <select
+                          className={`zf-form-sBox ${formErrors.installations ? 'border-red-500' : ''}`}
+                          name="Dropdown"
+                          checktype="c1"
+                          value={monthlyInstallations}
+                          onChange={handleMonthlyInstallationsChange}
+                        >
+                          <option value="-Select-">-Select-</option>
+                          <option value="1 - 10">1 - 10</option>
+                          <option value="10 - 30">10 - 30</option>
+                          <option value="30 - 60">30 - 60</option>
+                          <option value="60 - 100">60 - 100</option>
+                        </select>
+                        <p className="zf-errorMessage" style={{ display: formErrors.installations ? 'block' : 'none' }}>
+                          {formErrors.installations}
+                        </p>
+                      </div>
+                      <div className="zf-clearBoth"></div>
+                    </li>
 
-                {/* Installation Cost */}
-                <li className="zf-tempFrmWrapper zf-large">
-                  <label className="zf-labelName">
-                    What is your average cost per installation?
-                    <em className="zf-important">*</em>
-                  </label>
-                  <div className="zf-tempContDiv">
-                    <select
-                      className={`zf-form-sBox ${formErrors.installationCost ? 'border-red-500' : ''}`}
-                      name="Dropdown1"
-                      checktype="c1"
-                      value={installationCost}
-                      onChange={handleInstallationCostChange}
-                    >
-                      <option value="-Select-">-Select-</option>
-                      <option value="Up to ₦1,000,000">Up to ₦1,000,000</option>
-                      <option value="₦1,000,000 - ₦5,000,000">₦1,000,000 - ₦5,000,000</option>
-                      <option value="₦5,000,000 - ₦10,000,000">₦5,000,000 - ₦10,000,000</option>
-                      <option value="₦10,000,000 - ₦20,000,000">₦10,000,000 - ₦20,000,000</option>
-                    </select>
-                    <p className="zf-errorMessage" style={{ display: formErrors.installationCost ? 'block' : 'none' }}>
-                      {formErrors.installationCost}
-                    </p>
-                    <p className="zf-instruction">
-                      This is how much you spend to install a system for a client not how much you are being paid by the
-                      client or customer.
-                    </p>
-                  </div>
-                  <div className="zf-clearBoth"></div>
-                </li>
+                    {/* Installation Cost - Only for Installers */}
+                    <li className="zf-tempFrmWrapper zf-large">
+                      <label className="zf-labelName">
+                        What is your average cost per installation?
+                        <em className="zf-important">*</em>
+                      </label>
+                      <div className="zf-tempContDiv">
+                        <select
+                          className={`zf-form-sBox ${formErrors.installationCost ? 'border-red-500' : ''}`}
+                          name="Dropdown1"
+                          checktype="c1"
+                          value={installationCost}
+                          onChange={handleInstallationCostChange}
+                        >
+                          <option value="-Select-">-Select-</option>
+                          <option value="Up to ₦1,000,000">Up to ₦1,000,000</option>
+                          <option value="₦1,000,000 - ₦5,000,000">₦1,000,000 - ₦5,000,000</option>
+                          <option value="₦5,000,000 - ₦10,000,000">₦5,000,000 - ₦10,000,000</option>
+                          <option value="₦10,000,000 - ₦20,000,000">₦10,000,000 - ₦20,000,000</option>
+                        </select>
+                        <p
+                          className="zf-errorMessage"
+                          style={{ display: formErrors.installationCost ? 'block' : 'none' }}
+                        >
+                          {formErrors.installationCost}
+                        </p>
+                        <p className="zf-instruction">
+                          This is how much you spend to install a system for a client not how much you are being paid by
+                          the client or customer.
+                        </p>
+                      </div>
+                      <div className="zf-clearBoth"></div>
+                    </li>
+                  </>
+                )}
 
-                {/* Monthly Sales */}
-                <li className="zf-tempFrmWrapper zf-large">
-                  <label className="zf-labelName">
-                    What is your average sales every month?
-                    <em className="zf-important">*</em>
-                  </label>
-                  <div className="zf-tempContDiv">
-                    <select
-                      className={`zf-form-sBox ${formErrors.monthlySales ? 'border-red-500' : ''}`}
-                      name="Dropdown4"
-                      checktype="c1"
-                      value={monthlySales}
-                      onChange={handleMonthlySalesChange}
-                    >
-                      <option value="-Select-">-Select-</option>
-                      <option value="₦1,000,000 - ₦5,000,000">₦1,000,000 - ₦5,000,000</option>
-                      <option value="₦5,000,000 - ₦10,000,000">₦5,000,000 - ₦10,000,000</option>
-                      <option value="₦10,000,000 - ₦20,000,000">₦10,000,000 - ₦20,000,000</option>
-                      <option value="₦20,000,000 - ₦50,000,000">₦20,000,000 - ₦50,000,000</option>
-                      <option value="Above ₦50,000,000">Above ₦50,000,000</option>
-                    </select>
-                    <p className="zf-errorMessage" style={{ display: formErrors.monthlySales ? 'block' : 'none' }}>
-                      {formErrors.monthlySales}
-                    </p>
-                  </div>
-                  <div className="zf-clearBoth"></div>
-                </li>
+                {businessType === 'Distributor' && (
+                  <>
+                    {/* Monthly Sales - Only for Distributors */}
+                    <li className="zf-tempFrmWrapper zf-large">
+                      <label className="zf-labelName">
+                        What is your average sales every month?
+                        <em className="zf-important">*</em>
+                      </label>
+                      <div className="zf-tempContDiv">
+                        <select
+                          className={`zf-form-sBox ${formErrors.monthlySales ? 'border-red-500' : ''}`}
+                          name="Dropdown4"
+                          checktype="c1"
+                          value={monthlySales}
+                          onChange={handleMonthlySalesChange}
+                        >
+                          <option value="-Select-">-Select-</option>
+                          <option value="₦1,000,000 - ₦5,000,000">₦1,000,000 - ₦5,000,000</option>
+                          <option value="₦5,000,000 - ₦10,000,000">₦5,000,000 - ₦10,000,000</option>
+                          <option value="₦10,000,000 - ₦20,000,000">₦10,000,000 - ₦20,000,000</option>
+                          <option value="₦20,000,000 - ₦50,000,000">₦20,000,000 - ₦50,000,000</option>
+                          <option value="Above ₦50,000,000">Above ₦50,000,000</option>
+                        </select>
+                        <p className="zf-errorMessage" style={{ display: formErrors.monthlySales ? 'block' : 'none' }}>
+                          {formErrors.monthlySales}
+                        </p>
+                      </div>
+                      <div className="zf-clearBoth"></div>
+                    </li>
+                  </>
+                )}
 
                 {/* Can Provide Guarantor */}
                 <li className="zf-tempFrmWrapper zf-large">
