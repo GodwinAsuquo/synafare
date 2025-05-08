@@ -59,7 +59,7 @@ interface FormErrors {
 const ZohoSolarForm: React.FC<ZohoSolarFormProps> = ({ preSelectedPackage, packageCost, inverterPackage }) => {
   // Fetch inverter packages
   const { data: inverterPackages, isLoading } = useFetchInverterPackages();
-const { trackCompleteRegistration } = useMetaEvents();
+  const { trackCompleteRegistration } = useMetaEvents();
 
   const formRef = useRef<HTMLFormElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -75,6 +75,8 @@ const { trackCompleteRegistration } = useMetaEvents();
   const [downPaymentFormatted, setDownPaymentFormatted] = useState<string>(''); // For displaying formatted value
   const [repaymentMonths, setRepaymentMonths] = useState<string>('6');
   const [monthlyPayment, setMonthlyPayment] = useState<string>('0');
+  const [bvnNumber, setBvnNumber] = useState<string>('');
+  const [bvnError, setBvnError] = useState<string>('');
 
   // Form input states
   const [firstName, setFirstName] = useState<string>('');
@@ -275,74 +277,74 @@ const { trackCompleteRegistration } = useMetaEvents();
   };
 
   // This function will be called on form submission
-const handleSubmit = (e: React.FormEvent) => {
-  e.preventDefault();
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
 
-  // First perform client-side validation
-  if (!validateForm()) {
-    // Scroll to the general error message
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    return;
-  }
-
-  setIsSubmitting(true);
-  setGeneralError('');
-  setFormErrors({ ...formErrors, submitError: undefined });
-
-  try {
-    // Track the Complete Registration event for Meta Conversions API
-    if (firstName && lastName) {
-      // Prepare user data for tracking
-       const userData = {
-         email: email || undefined, // If email is empty string, convert to undefined
-         phone: phoneNumber ? phoneNumber.toString() : undefined,
-         firstName: firstName,
-         lastName: lastName,
-       };
-
-       console.log('Sending user data to tracking:', userData);
-
-      // Prepare custom data with package information
-      const customData = {
-        package_name: selectedPackage ? selectedPackage.split(' - ')[0] : '',
-        package_value: selectedPackagePrice,
-        financing_option: financingOption,
-        down_payment: downPayment,
-        payment_months: repaymentMonths,
-      };
-
-      // Send the event to Meta
-      trackCompleteRegistration({
-        userData,
-        customData,
-      });
-
-      // Also trigger the standard Pixel event if fbq is available
-      if (window.fbq) {
-        window.fbq('track', 'CompleteRegistration', {
-          content_name: selectedPackage,
-          value: selectedPackagePrice,
-          currency: 'NGN',
-        });
-      }
+    // First perform client-side validation
+    if (!validateForm()) {
+      // Scroll to the general error message
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
     }
 
-    // Use native form submit
-    formRef.current?.submit();
+    setIsSubmitting(true);
+    setGeneralError('');
+    setFormErrors({ ...formErrors, submitError: undefined });
 
-    // Set a timeout to reset the submission state after a delay
-    setTimeout(() => {
+    try {
+      // Track the Complete Registration event for Meta Conversions API
+      if (firstName && lastName) {
+        // Prepare user data for tracking
+        const userData = {
+          email: email || undefined, // If email is empty string, convert to undefined
+          phone: phoneNumber ? phoneNumber.toString() : undefined,
+          firstName: firstName,
+          lastName: lastName,
+        };
+
+        console.log('Sending user data to tracking:', userData);
+
+        // Prepare custom data with package information
+        const customData = {
+          package_name: selectedPackage ? selectedPackage.split(' - ')[0] : '',
+          package_value: selectedPackagePrice,
+          financing_option: financingOption,
+          down_payment: downPayment,
+          payment_months: repaymentMonths,
+        };
+
+        // Send the event to Meta
+        trackCompleteRegistration({
+          userData,
+          customData,
+        });
+
+        // Also trigger the standard Pixel event if fbq is available
+        if (window.fbq) {
+          window.fbq('track', 'CompleteRegistration', {
+            content_name: selectedPackage,
+            value: selectedPackagePrice,
+            currency: 'NGN',
+          });
+        }
+      }
+
+      // Use native form submit
+      formRef.current?.submit();
+
+      // Set a timeout to reset the submission state after a delay
+      setTimeout(() => {
+        setIsSubmitting(false);
+      }, 5000);
+    } catch (error) {
+      console.error('Form submission error:', error);
       setIsSubmitting(false);
-    }, 5000);
-  } catch (error) {
-    console.error('Form submission error:', error);
-    setIsSubmitting(false);
-    setFormErrors({
-      ...formErrors,
-      submitError: 'An error occurred while submitting the form. Please try again.',
-    });
-  }
-};
+      setFormErrors({
+        ...formErrors,
+        submitError: 'An error occurred while submitting the form. Please try again.',
+      });
+    }
+  };
 
   // Handle package selection change
   const handlePackageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -581,14 +583,27 @@ const handleSubmit = (e: React.FormEvent) => {
     setShowBusinessFields(value === 'Business Owner' || value === 'Both');
   };
 
-
-
   const handleBusinessNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setBusinessName(e.target.value);
   };
 
   const handleBusinessNatureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setBusinessNature(e.target.value);
+  };
+
+  const handleBvnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Only allow numeric characters
+    const numericValue = e.target.value.replace(/\D/g, '');
+
+    // Update BVN value
+    setBvnNumber(numericValue);
+
+    // Validate BVN - should be 11 digits
+    if (numericValue && numericValue.length !== 11) {
+      setBvnError('BVN must be 11 digits');
+    } else {
+      setBvnError('');
+    }
   };
 
   const updateAddressErrorState = (street: string, city: string, region: string) => {
@@ -927,8 +942,6 @@ const handleSubmit = (e: React.FormEvent) => {
                   {/* Conditional Business Fields */}
                   {showBusinessFields && (
                     <>
-                     
-
                       {/* Business Name */}
                       <li className="zf-tempFrmWrapper zf-large">
                         <label className="zf-labelName">Business Name</label>
@@ -1026,6 +1039,33 @@ const handleSubmit = (e: React.FormEvent) => {
                       {formErrors.fileUpload}
                     </p>
 
+                    <div className="zf-clearBoth"></div>
+                  </li>
+
+                  {/* BVN Input Field */}
+                  <li className="zf-tempFrmWrapper zf-large">
+                    <label className="zf-labelName">
+                      Bank Verification Number (BVN)
+                      <em className="zf-important">*</em>
+                    </label>
+                    <div className="zf-tempContDiv">
+                      <span>
+                        <input
+                          type="text"
+                          maxLength={11}
+                          name="Number1"
+                          checktype="c2"
+                          value={bvnNumber}
+                          onChange={handleBvnChange}
+                          placeholder="Enter your 11-digit BVN"
+                          className={bvnError ? 'border-red-500' : ''}
+                        />
+                      </span>
+                      <p className="zf-errorMessage" style={{ display: bvnError ? 'block' : 'none' }}>
+                        {bvnError}
+                      </p>
+                      <p className="zf-instruction">Your 11-digit Bank Verification Number</p>
+                    </div>
                     <div className="zf-clearBoth"></div>
                   </li>
                 </>
