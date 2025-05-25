@@ -49,6 +49,7 @@ interface FormErrors {
   guarantor?: string;
   guarantorName?: string;
   guarantorPhone?: string;
+  guarantorEmail?: string;
   guarantorAddress?: string;
   fileUpload?: string;
   submitError?: string;
@@ -89,6 +90,7 @@ const PartnerRegistrationForm: React.FC = () => {
   const [guarantorFirstName, setGuarantorFirstName] = useState<string>('');
   const [guarantorLastName, setGuarantorLastName] = useState<string>('');
   const [guarantorPhone, setGuarantorPhone] = useState<string>('');
+  const [guarantorEmail, setGuarantorEmail] = useState<string>('');
   const [guarantorAddress, setGuarantorAddress] = useState<string>('');
   const [guarantorCity, setGuarantorCity] = useState<string>('');
   const [guarantorRegion, setGuarantorRegion] = useState<string>('');
@@ -266,6 +268,17 @@ const PartnerRegistrationForm: React.FC = () => {
       errors.guarantor = 'Please select whether you can provide a guarantor';
       isValid = false;
       missingRequiredFields = true;
+    }
+
+    if (canProvideGuarantor === 'Yes') {
+      if (!guarantorEmail) {
+        errors.guarantorEmail = 'Guarantor email is required';
+        isValid = false;
+        missingRequiredFields = true;
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(guarantorEmail)) {
+        errors.guarantorEmail = 'Please enter a valid email address for your guarantor';
+        isValid = false;
+      }
     }
 
     // Validate bank statement upload
@@ -488,6 +501,14 @@ const PartnerRegistrationForm: React.FC = () => {
     setCanProvideGuarantor(value);
     if (formErrors.guarantor && value !== '-Select-') {
       setFormErrors({ ...formErrors, guarantor: undefined });
+    }
+  };
+
+  const handleGuarantorEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setGuarantorEmail(value);
+    if (formErrors.guarantorEmail && value && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+      setFormErrors({ ...formErrors, guarantorEmail: undefined });
     }
   };
 
@@ -1026,6 +1047,36 @@ const PartnerRegistrationForm: React.FC = () => {
                           </span>
                           <div className="zf-clearBoth"></div>
                         </div>
+                      </div>
+                      <div className="zf-clearBoth"></div>
+                    </li>
+
+                    {/* Guarantor Email */}
+                    <li className="zf-tempFrmWrapper zf-large">
+                      <label className="zf-labelName">
+                        What is your Guarantor's Email?
+                        <em className="zf-important">*</em>
+                      </label>
+                      <div className="zf-tempContDiv">
+                        <span>
+                          <input
+                            fieldType={9}
+                            type="text"
+                            maxLength={255}
+                            name="Email1"
+                            checktype="c5"
+                            value={guarantorEmail}
+                            onChange={handleGuarantorEmailChange}
+                            placeholder=""
+                            className={formErrors.guarantorEmail ? 'border-red-500' : ''}
+                          />
+                        </span>
+                        <p
+                          className="zf-errorMessage"
+                          style={{ display: formErrors.guarantorEmail ? 'block' : 'none' }}
+                        >
+                          {formErrors.guarantorEmail}
+                        </p>
                       </div>
                       <div className="zf-clearBoth"></div>
                     </li>
