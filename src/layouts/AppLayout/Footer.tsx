@@ -36,7 +36,7 @@ const Footer = () => {
         <div className="flex items-start justify-between lg:space-x-56 mt-16 lg:mt-0">
           <div>
             <h4 className="font-bold">Quick Links</h4>
-            <ul className="text-sm font-light mt-6">
+            <ul className="text-sm font-light mt-6 space-y-5">
               {navLinks.map((d, i) => {
                 return (
                   <Link key={i} to={d.id} smooth={true} duration={1000} offset={-90}>
@@ -44,6 +44,15 @@ const Footer = () => {
                   </Link>
                 );
               })}
+              <li className='mt-5'>
+                <a
+                  href="https://forms.zohopublic.eu/segunsyna1/form/CustomerReferralForm/formperma/0WLVtOXu4NPpb1WqAda42kcUzLEDO9i2A3nc8gfb_HQ"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Career
+                </a>
+              </li>
             </ul>
           </div>
           <div>
