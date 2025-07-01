@@ -50,7 +50,7 @@ const Footer = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Career
+                  Careers
                 </a>
               </li>
             </ul>
