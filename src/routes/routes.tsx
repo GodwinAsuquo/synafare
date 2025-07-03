@@ -6,8 +6,9 @@ import Packages from '../pages/packages';
 import Package from '../pages/packages/package';
 import InstallmentalPayment from '../pages/packages/package/installmentalPayment';
 import PartnerRegistrationForm from '../pages/PartnerRegistrationForm';
+import FinanceRequestForm from '../pages/FinanceRequestForm';
 
-const { ROOT, HOME, PACKAGES, PACKAGE, INSTALLMENTAL_FORM, PARTNER_REGISTRATION_FORM} = PATHS;
+const { ROOT, HOME, PACKAGES, PACKAGE, INSTALLMENTAL_FORM, PARTNER_REGISTRATION_FORM, FINANCE_REQUEST_FORM} = PATHS;
 
 export const ROUTES: AppRoute[] = [
   {
@@ -38,6 +39,11 @@ export const ROUTES: AppRoute[] = [
     path: PARTNER_REGISTRATION_FORM,
     element: <PartnerRegistrationForm />,
   },
+  {
+    path: FINANCE_REQUEST_FORM,
+    element: <FinanceRequestForm/>,
+  },
+
   {
     path: '*',
     element: <Navigate to={ROOT} replace />,

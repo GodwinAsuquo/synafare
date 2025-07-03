@@ -1,9 +1,10 @@
-import { useNavigate } from 'react-router-dom';
+
 import BecomePartnerButton from '../../components/shared/BecomePartnerButton';
-import { PATHS } from '../../utils/enum';
+// import { PATHS } from '../../utils/enum';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
-  const navigate = useNavigate();
+ 
 
   return (
     <section id="top">
@@ -28,14 +29,15 @@ const Hero = () => {
               homeowner seeking flexible payment plans.
             </p>
             <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-2 mx-auto w-fit text-sm">
-              <button
-                onClick={() => navigate(PATHS.PACKAGES)}
-                className="text-primary bg-white py-2 px-2 md:px-3 rounded-lg border-2 border-white"
-              >
-                Explore Solar Packages
-              </button>
-
               <BecomePartnerButton />
+              <Link to="/finance-request-form">
+                <button
+                  // onClick={() => navigate(PATHS.PACKAGES)}
+                  className="text-primary bg-white py-2 px-2 md:px-3 rounded-lg border-2 border-white"
+                >
+                  Request For Finance
+                </button>
+              </Link>
             </div>
           </div>
         </div>
