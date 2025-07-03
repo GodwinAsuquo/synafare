@@ -1,4 +1,5 @@
 import ExplorePackagesButton from '../../components/shared/ExplorePackagesButton';
+import BecomePartnerButton from '../../components/shared/BecomePartnerButton';
 import { whyChooseUs } from '../../utils/constants';
 
 const WhyChooseUs = () => {
@@ -33,7 +34,7 @@ const WhyChooseUs = () => {
                     {d.description}
                   </p>
                   <div data-aos="fade-up">
-                    <ExplorePackagesButton />
+                    {d.id === 1 || d.id === 2 ? <BecomePartnerButton/> : <ExplorePackagesButton /> }
                   </div>
                 </div>
               </div>

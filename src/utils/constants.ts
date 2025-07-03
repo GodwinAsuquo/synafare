@@ -92,7 +92,7 @@ managing our finances better. The seamless onboarding made it easy to get starte
   {
     quote:
       'Synafare helped us grow our solar installation business by providing the financing we needed. Their platform made everything seamless.',
-    name: 'Scripion Energy',
+    name: 'Scorpion Energy',
     role: 'Installer & Retailer',
   },
   {
