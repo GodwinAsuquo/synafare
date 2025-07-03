@@ -1,10 +1,10 @@
-import { useNavigate } from 'react-router-dom';
+
 import BecomePartnerButton from '../../components/shared/BecomePartnerButton';
 // import { PATHS } from '../../utils/enum';
 import { Link } from 'react-router-dom';
 
 const Hero = () => {
-  const navigate = useNavigate();
+ 
 
   return (
     <section id="top">
