@@ -1,3 +1,5 @@
+import BecomePartnerButton from "../../components/shared/BecomePartnerButton";
+
 const PreFooter = () => {
   return (
     <div
@@ -9,11 +11,13 @@ const PreFooter = () => {
         Ready to elevate your business with flexible financing for sustainable energy products? Partner with Synafare to
         access competitive product financing and dedicated support. Contact us today to learn more!
       </p>
-      <button className="px-3 py-2 text-sm border rounded-lg border-primary text-primary">
+      {/* <button className="px-3 py-2 text-sm border rounded-lg border-primary text-primary">
         <a href="https://zdsineyv.forms.app/synafare-registration-form" target="_blank" rel="noopener noreferrer">
           Get Started for Free
         </a>
-      </button>
+      </button> */}
+
+      <BecomePartnerButton />
     </div>
   );
 };

@@ -1,11 +1,10 @@
 
-import BecomePartnerButton from '../../components/shared/BecomePartnerButton';
-// import { PATHS } from '../../utils/enum';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { PATHS } from '../../utils/enum';
 
 const Hero = () => {
- 
-
+   const navigate = useNavigate();
   return (
     <section id="top">
       <div className="relative w-full h-screen md:h-[820px]">
@@ -29,7 +28,12 @@ const Hero = () => {
               homeowner seeking flexible payment plans.
             </p>
             <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-2 mx-auto w-fit text-sm">
-              <BecomePartnerButton />
+              <button
+                onClick={() => navigate(PATHS.PARTNER_REGISTRATION_FORM)}
+                className="text-white  flex justify-center bg-[#201E1F] py-2 px-3 rounded-lg border-2 border-[#4F986A]"
+              >
+                Become a Partner
+              </button>
               <Link to="/finance-request-form">
                 <button
                   // onClick={() => navigate(PATHS.PACKAGES)}
