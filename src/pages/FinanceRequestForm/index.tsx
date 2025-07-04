@@ -64,7 +64,7 @@ const FinanceRequestForm: React.FC = () => {
   const [companyName, setCompanyName] = useState<string>('');
 
   // Business details
-  const [financeType, setfinanceType] = useState<string>('');
+  const [financeType, setFinanceType] = useState<string>('');
   const [customerName, setCustomerName] = useState('');
   const [CustomerBvn, setCustomerBvn] = useState('');
   const [totalInvoiceFee, setTotalInvoiceFee] = useState<number>(0);
@@ -74,6 +74,7 @@ const FinanceRequestForm: React.FC = () => {
   const [financeDuration, setFinanceDuration] = useState('6 Months'); // Default to 6 Months
   const [monthlyPayment, setMonthlyPayment] = useState<string>('0');
 
+   
   useEffect(() => {
     // Dynamically load the validation script
     const script = document.createElement('script');
@@ -89,8 +90,8 @@ const FinanceRequestForm: React.FC = () => {
             'SingleLine', // Company Name
             'Dropdown3', // Financing Purpose (Inventory Financing or Installation Project)
             'FileUpload', // Invoice upload
-            'Number1', // Total Invoice Fee
-            'Number2', // Downpayment
+            'Number', // Total Invoice Fee
+            'Number1', // Downpayment
             'Dropdown1', // Financing Duration
           ];
 
@@ -159,42 +160,36 @@ const FinanceRequestForm: React.FC = () => {
     let isValid = true;
     let missingRequiredFields = false;
 
-    // Validate first name
-    if (!firstName) {
+    if (!firstName.trim()) {
       errors.firstName = 'First name is required';
       isValid = false;
       missingRequiredFields = true;
     }
 
-    // Validate last name
-    if (!lastName) {
+    if (!lastName.trim()) {
       errors.lastName = 'Last name is required';
       isValid = false;
       missingRequiredFields = true;
     }
 
-    // Validate business name
-    if (!companyName) {
+    if (!companyName.trim()) {
       errors.companyName = 'Company name is required';
       isValid = false;
       missingRequiredFields = true;
     }
 
-    // Validate business type
     if (!financeType || financeType === '-Select-') {
       errors.financeType = 'Please select your business type';
       isValid = false;
       missingRequiredFields = true;
     }
 
-    // Validate fields specific to "Installation Project"
     if (financeType === 'Installation Project') {
-      if (!customerName) {
+      if (!customerName.trim()) {
         errors.customerName = "Customer's name is required";
         isValid = false;
         missingRequiredFields = true;
       }
-
       if (!CustomerBvn) {
         errors.customerBvn = "Customer's BVN is required";
         isValid = false;
@@ -205,22 +200,25 @@ const FinanceRequestForm: React.FC = () => {
       }
     }
 
-    if (!totalInvoiceFee) {
-      errors.totalInvoiceFee = 'Total invoice fee is required';
+    if (totalInvoiceFee <= 0 || isNaN(totalInvoiceFee)) {
+      errors.totalInvoiceFee = 'Total invoice fee must be a valid positive number';
       isValid = false;
       missingRequiredFields = true;
-    } else if (isNaN(Number(totalInvoiceFee))) {
-      errors.totalInvoiceFee = 'Invoice fee must be a valid number';
-      isValid = false;
     }
 
-    if (!downpayment) {
-      errors.downpayment = 'Downpayment is required';
+    if (downpayment <= 0 || isNaN(downpayment)) {
+      errors.downpayment = 'Downpayment must be a valid positive number';
       isValid = false;
       missingRequiredFields = true;
-    } else if (isNaN(Number(downpayment))) {
-      errors.downpayment = 'Downpayment must be a valid number';
-      isValid = false;
+    } else if (totalInvoiceFee > 0) {
+      const minDownPayment = Math.round(totalInvoiceFee * 0.3);
+      if (downpayment < minDownPayment) {
+        errors.downpayment = `Down payment must be at least ₦${formatNumberWithCommas(minDownPayment)}`;
+        isValid = false;
+      } else if (downpayment > totalInvoiceFee) {
+        errors.downpayment = `Down payment cannot exceed package price ₦${formatNumberWithCommas(totalInvoiceFee)}`;
+        isValid = false;
+      }
     }
 
     if (!financeDuration || financeDuration === '-Select-') {
@@ -229,47 +227,49 @@ const FinanceRequestForm: React.FC = () => {
       missingRequiredFields = true;
     }
 
-    // Validate file upload
     if (!fileInputRef.current?.files?.length) {
       errors.fileUpload = 'Please upload your invoice (PDF, max 5MB)';
       isValid = false;
       missingRequiredFields = true;
     }
 
-    // Set all errors at once
     setFormErrors(errors);
-
-    // Set general error message
-    if (missingRequiredFields) {
-      setGeneralError('Please fill in all required fields marked with *');
-    } else {
-      setGeneralError('');
-    }
+    setGeneralError(missingRequiredFields ? 'Please fill in all required fields marked with *' : '');
 
     return isValid;
   };
-
   // Handle form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('Form submitted, validating...');
 
-    // First perform client-side validation
+   
+
     if (!validateForm()) {
-      // Scroll to the error message
+      console.log('Validation failed, scrolling to error');
       if (errorRef.current) {
-        errorRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        // Optional: Add focus to the error div for accessibility
+        const headerOffset = document.querySelector('header')?.offsetHeight || 80;
+        const elementPosition = errorRef.current.getBoundingClientRect().top + window.pageYOffset;
+        const offsetPosition = elementPosition - headerOffset;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth',
+        });
         errorRef.current.focus();
       } else {
-        // Fallback to top of page
+        console.log('Error ref not found, scrolling to top');
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
       return;
     }
-    // Check Zoho's validation
+
     if (window.zf_ValidateAndSubmit && !window.zf_ValidateAndSubmit()) {
       setGeneralError('Please correct the errors in the form.');
       setIsSubmitting(false);
+      if (errorRef.current) {
+        errorRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        errorRef.current.focus();
+      }
       return;
     }
 
@@ -278,10 +278,7 @@ const FinanceRequestForm: React.FC = () => {
     setFormErrors({ ...formErrors, submitError: undefined });
 
     try {
-      // Use native form submit to Zoho
       formRef.current?.submit();
-
-      // Set a timeout to reset the submission state after a delay
       setTimeout(() => {
         setIsSubmitting(false);
       }, 5000);
@@ -292,6 +289,10 @@ const FinanceRequestForm: React.FC = () => {
         ...formErrors,
         submitError: 'An error occurred while submitting the form. Please try again.',
       });
+      if (errorRef.current) {
+        errorRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        errorRef.current.focus();
+      }
     }
   };
 
@@ -324,7 +325,7 @@ const FinanceRequestForm: React.FC = () => {
   const handleFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setFirstName(value);
-    if (formErrors.firstName && value) {
+    if (formErrors.firstName && value.trim()) {
       setFormErrors({ ...formErrors, firstName: undefined });
     }
   };
@@ -332,32 +333,28 @@ const FinanceRequestForm: React.FC = () => {
   const handleLastNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setLastName(value);
-    if (formErrors.lastName && value) {
+    if (formErrors.lastName && value.trim()) {
       setFormErrors({ ...formErrors, lastName: undefined });
     }
   };
 
-  const handlecompanyNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCompanyNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setCompanyName(value);
-    if (formErrors.companyName && value) {
+    if (formErrors.companyName && value.trim()) {
       setFormErrors({ ...formErrors, companyName: undefined });
     }
   };
 
   // Dropdown handlers
-  const handlefinanceTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleFinanceTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
-    setfinanceType(value);
-
-    // Clear all conditionally rendered fields
+    setFinanceType(value);
     setCustomerName('');
     setCustomerBvn('');
     // setTotalInvoiceFee(0);
-    // setDownpayment(undefined);
+    // setDownpayment(0);
     // setFinanceDuration('');
-
-    // Clear related errors
     const updatedErrors = { ...formErrors };
     delete updatedErrors.financeType;
     delete updatedErrors.customerName;
@@ -365,14 +362,13 @@ const FinanceRequestForm: React.FC = () => {
     // delete updatedErrors.totalInvoiceFee;
     // delete updatedErrors.downpayment;
     // delete updatedErrors.financeDuration;
-
     setFormErrors(updatedErrors);
   };
 
   const handleCustomerNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setCustomerName(value);
-    if (formErrors.customerName && value) {
+    if (formErrors.customerName && value.trim()) {
       setFormErrors({ ...formErrors, customerName: undefined });
     }
   };
@@ -389,29 +385,41 @@ const FinanceRequestForm: React.FC = () => {
     const value = e.target.value.replace(/[^0-9]/g, '');
     if (value === '') {
       setTotalInvoiceFee(0);
-      setInvoiceFeeFormatted('');
+      setInvoiceFeeFormatted('0');
       setFormErrors({ ...formErrors, totalInvoiceFee: 'Total invoice fee is required' });
       return;
     }
     const numValue = parseInt(value, 10);
+
+
     setTotalInvoiceFee(numValue);
     setInvoiceFeeFormatted(formatNumberWithCommas(numValue));
+
     if (formErrors.totalInvoiceFee && value) {
       setFormErrors({ ...formErrors, totalInvoiceFee: undefined });
     }
+
+    console.log(`Total Invoice Fee changed: ${numValue}`, typeof(numValue));
+    console.log(`Invoice Fee Formatted: ${invoiceFeeFormatted}`, typeof(invoiceFeeFormatted));
+    
   };
 
   const handleDownpaymentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/[^0-9]/g, '');
     if (value === '') {
       setDownpayment(0);
-      setDownPaymentFormatted('');
+      setDownPaymentFormatted('0');
       setFormErrors({ ...formErrors, downpayment: 'Down payment is required' });
       return;
     }
     const numValue = parseInt(value, 10);
+   
     setDownpayment(numValue);
     setDownPaymentFormatted(formatNumberWithCommas(numValue));
+
+    
+
+
     if (formErrors.downpayment) {
       setFormErrors({ ...formErrors, downpayment: undefined });
     }
@@ -429,9 +437,12 @@ const FinanceRequestForm: React.FC = () => {
         });
       }
     }
+    
+     
+    
   };
 
-  const handlefinanceDurationChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleFinanceDurationChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
     setFinanceDuration(value);
     if (formErrors.financeDuration && value !== '-Select-') {
@@ -542,7 +553,7 @@ const FinanceRequestForm: React.FC = () => {
                         name="SingleLine"
                         checktype="c1"
                         value={companyName}
-                        onChange={handlecompanyNameChange}
+                        onChange={handleCompanyNameChange}
                         maxLength={255}
                         fieldType={1}
                         placeholder=""
@@ -568,7 +579,7 @@ const FinanceRequestForm: React.FC = () => {
                       name="Dropdown3"
                       checktype="c1"
                       value={financeType}
-                      onChange={handlefinanceTypeChange}
+                      onChange={handleFinanceTypeChange}
                     >
                       <option value="-Select-">-Select-</option>
                       <option value="Inventory Financing">Inventory Financing</option>
@@ -651,7 +662,7 @@ const FinanceRequestForm: React.FC = () => {
                       <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-700">₦</span>
                       <input
                         type="text" // Changed to text to support formatted input
-                        name="Number"
+                        // name="Number"
                         checktype="c1"
                         value={invoiceFeeFormatted}
                         onChange={handleTotalInvoiceFeeChange}
@@ -661,6 +672,7 @@ const FinanceRequestForm: React.FC = () => {
                         style={{ padding: '0.625rem 1.7rem' }}
                         className={formErrors.totalInvoiceFee ? 'border-red-500' : ''}
                       />
+                      <input type="hidden" name="Number" value={totalInvoiceFee} />
                     </span>
                     <p className="zf-errorMessage" style={{ display: formErrors.totalInvoiceFee ? 'block' : 'none' }}>
                       {formErrors.totalInvoiceFee}
@@ -680,7 +692,7 @@ const FinanceRequestForm: React.FC = () => {
                       <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-700">₦</span>
                       <input
                         type="text"
-                        name="Number1"
+                        // name="Number1"
                         checktype="c1"
                         value={downPaymentFormatted}
                         onChange={handleDownpaymentChange}
@@ -690,6 +702,8 @@ const FinanceRequestForm: React.FC = () => {
                         style={{ padding: '0.625rem 1.7rem' }}
                         className={formErrors.downpayment ? 'border-red-500' : ''}
                       />
+                      <input type="hidden" name="Number1" value={downpayment} />
+
                     </span>
                     <p className="zf-errorMessage" style={{ display: formErrors.downpayment ? 'block' : 'none' }}>
                       {formErrors.downpayment}
@@ -706,11 +720,11 @@ const FinanceRequestForm: React.FC = () => {
                   </label>
                   <div className="zf-tempContDiv">
                     <select
-                      className={`zf-form-sBox ${formErrors.financeType ? 'border-red-500' : ''}`}
+                      className={`zf-form-sBox ${formErrors.financeDuration ? 'border-red-500' : ''}`}
                       name="Dropdown1"
                       checktype="c1"
                       value={financeDuration}
-                      onChange={handlefinanceDurationChange}
+                      onChange={handleFinanceDurationChange}
                     >
                       <option value="-Select-">-Select-</option>
                       <option value="1 Month">1 Month</option>
@@ -725,7 +739,7 @@ const FinanceRequestForm: React.FC = () => {
                     </p>
                   </div>
                   <p className="zf-instruction">We charge a fixed interest of 5% monthly</p>
-                  {downpayment !== 0 && financeDuration && (
+                  {downpayment > 0 && financeDuration && financeDuration !== '-Select-' && (
                     <div className="mt-2 p-3 bg-gray-100 border border-gray-300 rounded-lg">
                       <p className="font-medium">
                         Your monthly payment: ₦{monthlyPayment}/month for {financeDuration}
